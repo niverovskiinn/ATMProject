@@ -14,7 +14,6 @@ namespace DataAccess.Repository
         void Add(T entity);
         void Delete(T entity);
         Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> expression);
-        Task<T> GetAsync(int id);
         void Update(T entity);
     }
 }

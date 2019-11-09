@@ -1,50 +1,52 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace DataAccess.Repository
-
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntity
+    internal class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        
-        public Task<IEnumerable<T>> GetAllAsync()
+        protected readonly DbContext DbContext;
+        protected readonly DbSet<T> DataSet;
+
+        public Repository(DbContext dbContext)
         {
-            throw new NotImplementedException();
+            DbContext = dbContext;
+            DataSet = dbContext.Set<T>();
         }
 
         public IQueryable<T> Query()
         {
-            throw new NotImplementedException();
+            return DataSet;
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await DataSet.ToListAsync();
         }
 
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            DataSet.Add(entity);
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            DataSet.Remove(entity);
         }
 
-        public Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> expression)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetAsync(int id)
-        {
-            throw new NotImplementedException();
+            return await DataSet.Where(expression).ToListAsync();
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            DataSet.Update(entity);
         }
     }
 }

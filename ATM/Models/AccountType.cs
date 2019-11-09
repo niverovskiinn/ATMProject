@@ -2,6 +2,7 @@ namespace Models
 {
     public enum AccountType
     {
-        Checking
+        Checking,
+        //TODO add types
     }
 }

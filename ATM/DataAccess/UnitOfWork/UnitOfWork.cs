@@ -1,24 +1,32 @@
 using System.Threading.Tasks;
 using DataAccess.Repository;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace DataAccess.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private readonly DbContext _db;
+
+        public UnitOfWork(DbContext dbContext)
+        {
+            _db = dbContext;
+        }
+
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            _db.Dispose();
         }
 
-        public IRepository<T> Repository<T>() where T : class, IEntity
+        public IRepository<T> Repository<T>() where T : class,IEntity
         {
-            throw new System.NotImplementedException();
+            return new Repository<T>(_db);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new System.NotImplementedException();
+            await _db.SaveChangesAsync();
         }
     }
 }
