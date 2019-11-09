@@ -1,4 +1,6 @@
-namespace DataAccess
+
+namespace DataAccess.Repository
+
 {
     public class Repository
     {
