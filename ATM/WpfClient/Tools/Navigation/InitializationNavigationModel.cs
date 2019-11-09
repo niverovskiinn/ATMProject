@@ -23,6 +23,18 @@ namespace WpfClient.Tools.Navigation
                 case ViewType.History:
                     ViewsDictionary.Add(viewType, new HistoryView());
                     break;
+                case ViewType.Deposit:
+                    ViewsDictionary.Add(viewType, new DepositView());
+                    break;
+                case ViewType.ShowAmount:
+                    ViewsDictionary.Add(viewType, new ShowAmountView());
+                    break;
+                case ViewType.TransferMoney:
+                    ViewsDictionary.Add(viewType, new TransferMoneyView());
+                    break;
+                case ViewType.Withdraw:
+                    ViewsDictionary.Add(viewType, new WithdrawView());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);
             }
