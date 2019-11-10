@@ -1,9 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
     public class Card : IEntity
     {
+        [Key]
+        [StringLength(16, MinimumLength = 16)]
         public string Number { get; set; }
 
         public DateTime ExpireDate { get; set; }
@@ -12,10 +15,12 @@ namespace Models
 
         public string PinHash { get; set; }
         
-        public Account Belonging { get; set; }
-        
         public string Notes { get; set; }
 
         
+        public int AccountId { get; set; }
+
+        public Account Account { get; set; }
+
     }
 }
