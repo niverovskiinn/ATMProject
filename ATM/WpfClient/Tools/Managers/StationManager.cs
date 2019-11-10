@@ -8,9 +8,10 @@ namespace WpfClient.Tools.Managers
     {
         public static event Action StopThreads;
 
-        //private static IDataStorage _dataStorage;
-
         internal static User CurrentUser { get; set; }
+
+
+        //private static IDataStorage _dataStorage;
 
         //internal static IDataStorage DataStorage
         //{
@@ -18,13 +19,13 @@ namespace WpfClient.Tools.Managers
         //}
 
         //internal static void Initialize(IDataStorage dataStorage)
-       // {
-         //   _dataStorage = dataStorage;
+        // {
+        //   _dataStorage = dataStorage;
         //}
 
         internal static void CloseApp()
         {
-            MessageBox.Show("ShutDown");
+            MessageBox.Show("Shutting Down");
             StopThreads?.Invoke();
             Environment.Exit(1);
         }

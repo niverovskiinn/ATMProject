@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfClient.Tools.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="48" d:DesignWidth="300">
+             d:DesignHeight="48" d:DesignWidth="Auto">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>

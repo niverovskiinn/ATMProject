@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfClient.Tools.Navigation;
+using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
@@ -24,7 +25,7 @@ namespace WpfClient.Views
         public LoginView()
         {
             InitializeComponent();
-
+            DataContext = new LoginViewModel();
         }
     }
 }
