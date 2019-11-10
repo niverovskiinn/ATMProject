@@ -13,7 +13,8 @@ namespace DataAccess.Repository
         IQueryable<T> Query();
         void Add(T entity);
         void Delete(T entity);
-        Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> expression);
+        Task<T> GetAsync(Expression<Func<T, bool>> expression);
         void Update(T entity);
     }
 }

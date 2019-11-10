@@ -10,12 +10,12 @@ namespace DataAccess.Repository
 {
     internal class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        protected readonly DbContext DbContext;
+        //protected readonly DbContext DbContext;
         protected readonly DbSet<T> DataSet;
 
         public Repository(DbContext dbContext)
         {
-            DbContext = dbContext;
+          //  DbContext = dbContext;
             DataSet = dbContext.Set<T>();
         }
 
@@ -39,9 +39,14 @@ namespace DataAccess.Repository
             DataSet.Remove(entity);
         }
 
-        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> expression)
         {
             return await DataSet.Where(expression).ToListAsync();
+        }
+
+        public async Task<T> GetAsync(Expression<Func<T, bool>> expression)
+        {
+            return await DataSet.SingleOrDefaultAsync(expression);
         }
 
         public void Update(T entity)
