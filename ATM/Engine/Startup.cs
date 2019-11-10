@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess;
-using DataAccess.UnitOfWork;
+using Engine.DataAccess;
+using Engine.DataAccess.UnitOfWork;
+using Engine.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +29,17 @@ namespace Engine
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DbContext,AtmDbContext>(builder => builder.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.AddDbContext<DbContext,AtmDbContext>(builder => builder.UseSqlite(
+                Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+            
+            services.AddScoped<AccountsService>();
+            services.AddScoped<CardsService>();
+            services.AddScoped<TransactionsService>();
+            services.AddScoped<UsersService>();
 
         }
 

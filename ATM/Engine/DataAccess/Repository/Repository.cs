@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace DataAccess.Repository
+namespace Engine.DataAccess.Repository
 {
     internal class Repository<T> : IRepository<T> where T : class, IEntity
     {

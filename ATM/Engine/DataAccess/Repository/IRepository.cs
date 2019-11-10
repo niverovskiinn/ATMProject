@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Models;
 
-namespace DataAccess.Repository
+namespace Engine.DataAccess.Repository
 {
     public interface IRepository<T> where T : class, IEntity
     {
