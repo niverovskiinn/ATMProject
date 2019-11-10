@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace WpfClient.Tools.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для LabelAndPasswordControl.xaml
+    /// Interaction logic for LabelAndPasswordControl.xaml
     /// </summary>
     public partial class LabelAndPasswordControl
     {

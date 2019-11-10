@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WpfClient.Models;
 using WpfClient.Tools;
 using WpfClient.Tools.Managers;
+using WpfClient.Tools.Navigation;
 
 namespace WpfClient.ViewModels
 {
@@ -59,7 +63,7 @@ namespace WpfClient.ViewModels
 
         public ICommand ClearCommand
         {
-            get { return _clearCommand ?? (_clearCommand = new RelayCommand<object>(ClearImplementation)); }
+            get { return _clearCommand ?? (_clearCommand = new RelayCommand<object>(o => { Pin = ""; })); }
         }
 
         #endregion
@@ -74,22 +78,27 @@ namespace WpfClient.ViewModels
         private async void SignInImplementation(object obj)
         {
             LoaderManager.Instance.ShowLoader();
-            var result = await Task.Run((() =>
+            User currentUser = null;
+            bool result = false;
+            try
             {
-                User currentUser;
-                try
-                {
-                    currentUser = ClientManager.
-                }
-                
-            }));
+                currentUser = await ClientManager.GetUserByCredentialsAsync(CardNumber, Pin);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Sign in failed. Reason:{Environment.NewLine}{e.Message}");
+                Pin = "";
+            }
 
-        }
+            if (currentUser != null)
+            {
+                StationManager.CurrentUser = currentUser;
+                result = true;
+            }
 
-        private async void ClearImplementation(object obj)
-        {
-            throw new NotImplementedException();
-            //TODO clear pin and maybe card number
+            LoaderManager.Instance.HideLoader();
+            if (result)
+                NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
     }
