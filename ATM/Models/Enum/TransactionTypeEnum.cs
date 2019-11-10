@@ -6,6 +6,7 @@ namespace Models.Enum
     {
         [Description("Withdraw cash from ATM")]
         Withdraw,
+
         [Description("Send money to another person")]
         ToUser
     }

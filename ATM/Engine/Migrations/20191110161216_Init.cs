@@ -8,53 +8,44 @@ namespace Engine.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccountStatuses",
-                columns: table => new
+                "AccountStatuses",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Id = table.Column<int>(),
+                    Name = table.Column<string>(maxLength: 100),
                     Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountStatuses", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_AccountStatuses", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "AccountTypes",
-                columns: table => new
+                "AccountTypes",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Id = table.Column<int>(),
+                    Name = table.Column<string>(maxLength: 100),
                     Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountTypes", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_AccountTypes", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TransactionTypes",
-                columns: table => new
+                "TransactionTypes",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Id = table.Column<int>(),
+                    Name = table.Column<string>(maxLength: 100),
                     Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TransactionTypes", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TransactionTypes", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
+                "Users",
+                table => new
                 {
-                    Passport = table.Column<string>(maxLength: 8, nullable: false),
+                    Passport = table.Column<string>(maxLength: 8),
                     LastName = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     Patronymic = table.Column<string>(nullable: true),
-                    DateBirth = table.Column<DateTime>(nullable: false),
+                    DateBirth = table.Column<DateTime>(),
                     TaxNumber = table.Column<string>(nullable: true),
                     Telephone1 = table.Column<string>(nullable: true),
                     Telephone2 = table.Column<string>(nullable: true),
@@ -65,20 +56,17 @@ namespace Engine.Migrations
                     ApartmentNum = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Passport);
-                });
+                constraints: table => { table.PrimaryKey("PK_Users", x => x.Passport); });
 
             migrationBuilder.CreateTable(
-                name: "Accounts",
-                columns: table => new
+                "Accounts",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("Sqlite:Autoincrement", true),
                     TypeId = table.Column<int>(nullable: true),
-                    AmountMoney = table.Column<decimal>(nullable: false),
-                    Creation = table.Column<DateTime>(nullable: false),
+                    AmountMoney = table.Column<decimal>(),
+                    Creation = table.Column<DateTime>(),
                     StatusId = table.Column<int>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     OwnerPassport = table.Column<string>(nullable: true)
@@ -87,176 +75,176 @@ namespace Engine.Migrations
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accounts_Users_OwnerPassport",
-                        column: x => x.OwnerPassport,
-                        principalTable: "Users",
-                        principalColumn: "Passport",
+                        "FK_Accounts_Users_OwnerPassport",
+                        x => x.OwnerPassport,
+                        "Users",
+                        "Passport",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Accounts_AccountStatuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "AccountStatuses",
-                        principalColumn: "Id",
+                        "FK_Accounts_AccountStatuses_StatusId",
+                        x => x.StatusId,
+                        "AccountStatuses",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Accounts_AccountTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "AccountTypes",
-                        principalColumn: "Id",
+                        "FK_Accounts_AccountTypes_TypeId",
+                        x => x.TypeId,
+                        "AccountTypes",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cards",
-                columns: table => new
+                "Cards",
+                table => new
                 {
-                    Number = table.Column<string>(maxLength: 16, nullable: false),
-                    ExpireDate = table.Column<DateTime>(nullable: false),
+                    Number = table.Column<string>(maxLength: 16),
+                    ExpireDate = table.Column<DateTime>(),
                     Cvv2 = table.Column<string>(nullable: true),
                     PinHash = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
-                    AccountId = table.Column<int>(nullable: false)
+                    AccountId = table.Column<int>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cards", x => x.Number);
                     table.ForeignKey(
-                        name: "FK_Cards_Accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
+                        "FK_Cards_Accounts_AccountId",
+                        x => x.AccountId,
+                        "Accounts",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transactions",
-                columns: table => new
+                "Transactions",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("Sqlite:Autoincrement", true),
-                    DateTime = table.Column<DateTime>(nullable: false),
+                    DateTime = table.Column<DateTime>(),
                     TypeId = table.Column<int>(nullable: true),
-                    AmountMoney = table.Column<decimal>(nullable: false),
+                    AmountMoney = table.Column<decimal>(),
                     Notes = table.Column<string>(nullable: true),
-                    AccountFromId = table.Column<int>(nullable: false),
+                    AccountFromId = table.Column<int>(),
                     AccountToId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Accounts_AccountFromId",
-                        column: x => x.AccountFromId,
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
+                        "FK_Transactions_Accounts_AccountFromId",
+                        x => x.AccountFromId,
+                        "Accounts",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Transactions_Accounts_AccountToId",
-                        column: x => x.AccountToId,
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
+                        "FK_Transactions_Accounts_AccountToId",
+                        x => x.AccountToId,
+                        "Accounts",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Transactions_TransactionTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "TransactionTypes",
-                        principalColumn: "Id",
+                        "FK_Transactions_TransactionTypes_TypeId",
+                        x => x.TypeId,
+                        "TransactionTypes",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "AccountStatuses",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 1, "Active account", "Active" });
+                "AccountStatuses",
+                new[] {"Id", "Description", "Name"},
+                new object[] {1, "Active account", "Active"});
 
             migrationBuilder.InsertData(
-                table: "AccountStatuses",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 0, "Closed account", "Closed" });
+                "AccountStatuses",
+                new[] {"Id", "Description", "Name"},
+                new object[] {0, "Closed account", "Closed"});
 
             migrationBuilder.InsertData(
-                table: "AccountStatuses",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 2, "Frozen account", "Frozen" });
+                "AccountStatuses",
+                new[] {"Id", "Description", "Name"},
+                new object[] {2, "Frozen account", "Frozen"});
 
             migrationBuilder.InsertData(
-                table: "AccountTypes",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 1, "Credit account", "Credit" });
+                "AccountTypes",
+                new[] {"Id", "Description", "Name"},
+                new object[] {1, "Credit account", "Credit"});
 
             migrationBuilder.InsertData(
-                table: "AccountTypes",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 0, "Debit account", "Debit" });
+                "AccountTypes",
+                new[] {"Id", "Description", "Name"},
+                new object[] {0, "Debit account", "Debit"});
 
             migrationBuilder.InsertData(
-                table: "TransactionTypes",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 0, "Withdraw cash from ATM", "Withdraw" });
+                "TransactionTypes",
+                new[] {"Id", "Description", "Name"},
+                new object[] {0, "Withdraw cash from ATM", "Withdraw"});
 
             migrationBuilder.InsertData(
-                table: "TransactionTypes",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 1, "Send money to another person", "ToUser" });
+                "TransactionTypes",
+                new[] {"Id", "Description", "Name"},
+                new object[] {1, "Send money to another person", "ToUser"});
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_OwnerPassport",
-                table: "Accounts",
-                column: "OwnerPassport");
+                "IX_Accounts_OwnerPassport",
+                "Accounts",
+                "OwnerPassport");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_StatusId",
-                table: "Accounts",
-                column: "StatusId");
+                "IX_Accounts_StatusId",
+                "Accounts",
+                "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_TypeId",
-                table: "Accounts",
-                column: "TypeId");
+                "IX_Accounts_TypeId",
+                "Accounts",
+                "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cards_AccountId",
-                table: "Cards",
-                column: "AccountId");
+                "IX_Cards_AccountId",
+                "Cards",
+                "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_AccountFromId",
-                table: "Transactions",
-                column: "AccountFromId");
+                "IX_Transactions_AccountFromId",
+                "Transactions",
+                "AccountFromId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_AccountToId",
-                table: "Transactions",
-                column: "AccountToId");
+                "IX_Transactions_AccountToId",
+                "Transactions",
+                "AccountToId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_TypeId",
-                table: "Transactions",
-                column: "TypeId");
+                "IX_Transactions_TypeId",
+                "Transactions",
+                "TypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Cards");
+                "Cards");
 
             migrationBuilder.DropTable(
-                name: "Transactions");
+                "Transactions");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
+                "Accounts");
 
             migrationBuilder.DropTable(
-                name: "TransactionTypes");
+                "TransactionTypes");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                "Users");
 
             migrationBuilder.DropTable(
-                name: "AccountStatuses");
+                "AccountStatuses");
 
             migrationBuilder.DropTable(
-                name: "AccountTypes");
+                "AccountTypes");
         }
     }
 }

@@ -1,21 +1,36 @@
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Enum;
 
 namespace Engine.DataAccess
 {
-    public partial class AtmDbContext : DbContext
+    public class AtmDbContext : DbContext
     {
         public AtmDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        
-        
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            
+//            optionsBuilder.UseSqlite("Data Source=/Users/nikita/Documents/GitHub/ATMProject/ATM/Engine/DataAccess/AtmDb.db");
+//        }
+
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<AccountStatus> AccountStatuses { get; set; }
+        public DbSet<AccountType> AccountTypes { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionType> TransactionTypes { get; set; }
+
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<User> Users { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Add Entities to DB
+
 //             List<Card> cards = new List<Card>
 //            {
 //                new Card
@@ -85,31 +100,15 @@ namespace Engine.DataAccess
 ////            modelBuilder.Entity<Account>().HasData(accounts);
 ////            modelBuilder.Entity<Card>().HasData(cards);
 ////            modelBuilder.Entity<Transaction>().HasData(transactions);
-#endregion
 
-            modelBuilder.Entity<AccountStatus>().HasData(AccountStatusEnum.Active, AccountStatusEnum.Closed, 
+            #endregion
+
+            modelBuilder.Entity<AccountStatus>().HasData(AccountStatusEnum.Active, AccountStatusEnum.Closed,
                 AccountStatusEnum.Frozen);
             modelBuilder.Entity<AccountType>().HasData(AccountTypeEnum.Credit, AccountTypeEnum.Debit);
             modelBuilder.Entity<TransactionType>().HasData(TransactionTypeEnum.Withdraw, TransactionTypeEnum.ToUser);
 
             base.OnModelCreating(modelBuilder);
         }
-
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            
-//            optionsBuilder.UseSqlite("Data Source=/Users/nikita/Documents/GitHub/ATMProject/ATM/Engine/DataAccess/AtmDb.db");
-//        }
-
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<AccountStatus> AccountStatuses { get; set; }
-        public DbSet<AccountType> AccountTypes{ get; set; }
-
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransactionType> TransactionTypes{ get; set; }
-
-        public DbSet<Card> Cards { get; set; }
-        public DbSet<User> Users { get; set; }
-        
     }
 }

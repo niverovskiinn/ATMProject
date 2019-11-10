@@ -7,25 +7,31 @@ namespace Models.Enum
     {
         private AccountStatus(AccountStatusEnum @enum)
         {
-            Id = (int)@enum;
+            Id = (int) @enum;
             Name = @enum.ToString();
             Description = @enum.GetEnumDescription();
         }
 
-        protected AccountStatus() { } //For EF
+        protected AccountStatus()
+        {
+        } //For EF
 
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [Required, MaxLength(100)]
-        public string Name { get; set; }
+        [Required] [MaxLength(100)] public string Name { get; set; }
 
-        [MaxLength(100)]
-        public string Description { get; set; }
+        [MaxLength(100)] public string Description { get; set; }
 
-        public static implicit operator AccountStatus(AccountStatusEnum @enum) => new AccountStatus(@enum);
+        public static implicit operator AccountStatus(AccountStatusEnum @enum)
+        {
+            return new AccountStatus(@enum);
+        }
 
-        public static implicit operator AccountStatusEnum(AccountStatus st) => (AccountStatusEnum)st.Id;
-
+        public static implicit operator AccountStatusEnum(AccountStatus st)
+        {
+            return (AccountStatusEnum) st.Id;
+        }
     }
 }

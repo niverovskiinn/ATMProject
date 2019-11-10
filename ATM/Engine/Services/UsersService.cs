@@ -23,7 +23,5 @@ namespace Engine.Services
         {
             return await _unitOfWork.Repository<User>().GetAsync(user => user.Passport == passport);
         }
-        
-        
     }
 }
