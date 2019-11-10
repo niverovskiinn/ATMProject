@@ -13,17 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfClient.Tools.Navigation;
+using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
     /// <summary>
-    /// Логика взаимодействия для WithdrawView.xaml
+    /// Interaction logic for WithdrawView.xaml
     /// </summary>
     public partial class WithdrawView : UserControl, INavigatable
     {
         public WithdrawView()
         {
             InitializeComponent();
+            DataContext = new WithdrawViewModel();
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfClient.Tools.Navigation;
+using WpfClient.ViewModels;
 
 namespace WpfClient.Views
 {
@@ -24,6 +25,7 @@ namespace WpfClient.Views
         public ShowAmountView()
         {
             InitializeComponent();
+            DataContext = new ShowAmountViewModel();
         }
     }
 }

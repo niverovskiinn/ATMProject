@@ -73,12 +73,17 @@ namespace WpfClient.ViewModels
 
         private async void SignInImplementation(object obj)
         {
-      //      LoaderManager.Instance.ShowLoader();
-    //        var result = await Task.Run((() =>
-  //          {
-//                User currentUser;
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run((() =>
+            {
+                User currentUser;
+                try
+                {
+                    currentUser = ClientManager.
+                }
+                
+            }));
 
-            //}));
         }
 
         private async void ClearImplementation(object obj)

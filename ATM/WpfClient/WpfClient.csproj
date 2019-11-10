@@ -70,6 +70,7 @@
       <DependentUpon>LabelAndTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\ILoaderOwner.cs" />
+    <Compile Include="Tools\Managers\ClientManager.cs" />
     <Compile Include="Tools\Managers\LoaderManager.cs" />
     <Compile Include="Tools\Managers\NavigationManager.cs" />
     <Compile Include="Tools\Managers\StationManager.cs" />
@@ -160,7 +161,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -187,6 +187,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

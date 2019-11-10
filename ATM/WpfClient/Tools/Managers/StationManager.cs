@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Windows;
 using WpfClient.Models;
 
@@ -9,7 +10,6 @@ namespace WpfClient.Tools.Managers
         public static event Action StopThreads;
 
         internal static User CurrentUser { get; set; }
-
 
         //private static IDataStorage _dataStorage;
 
@@ -22,6 +22,7 @@ namespace WpfClient.Tools.Managers
         // {
         //   _dataStorage = dataStorage;
         //}
+
 
         internal static void CloseApp()
         {
