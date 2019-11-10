@@ -29,7 +29,6 @@ namespace WpfClient
             get { return _contentControl; }
         }
 
-
         private void InitializeApplication()
         {
             //StationManager.Initialize(new SerializedDataStorage());
@@ -41,6 +40,7 @@ namespace WpfClient
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+            InitializeApplication();
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:tools="clr-namespace:WpfClient.Tools"
-             xmlns:local="clr-namespace:WpfClient.Views"
+             xmlns:controls="clr-namespace:WpfClient.Tools.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -18,12 +17,10 @@
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Enter card number" Height="35" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" Margin="-2,-10,0,0"></Label>
-        <TextBox Name="CardNumberTextBox" Grid.Row="1" Grid.ColumnSpan="2" FontSize="14" FontWeight="Bold" AcceptsReturn="False" AcceptsTab="False" IsUndoEnabled="True" MaxLength="16"  MaxLines="1" Text="{Binding CardNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Enter pin code" Height="35" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" Margin="-2,-10,0,0"></Label>
-        <PasswordBox Name="PinTextBox" Grid.Row="3" Grid.ColumnSpan="2" FontSize="14" FontWeight="Bold" tools:PasswordBoxAssistant.BindPassword="True" 
-                     tools:PasswordBoxAssistant.BoundPassword="{Binding PinCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button <!--__-->></Button>
+        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Caption="Enter card number" Margin="10" Grid.RowSpan="2"></controls:LabelAndTextControl>
+        <controls:LabelAndPasswordControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Password="{Binding Pin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                           Caption="Enter pin code" Margin="10" Grid.RowSpan="2"></controls:LabelAndPasswordControl>
+
     </Grid>
 
 </UserControl>

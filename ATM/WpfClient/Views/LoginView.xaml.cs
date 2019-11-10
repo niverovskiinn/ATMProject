@@ -24,6 +24,7 @@ namespace WpfClient.Views
         public LoginView()
         {
             InitializeComponent();
+
         }
     }
 }
