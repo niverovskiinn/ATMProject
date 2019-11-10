@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Engine.DataAccess.UnitOfWork;
+using Models;
 
 namespace Engine.Services
 {
@@ -10,5 +13,17 @@ namespace Engine.Services
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<IEnumerable<Account>> GetUserAccountsAsync(User user)
+        {
+            return await _unitOfWork.Repository<Account>().GetListAsync(
+                acc => acc.OwnerPassport == user.Passport);
+        }
+
+        public async Task AddTransType()
+        {
+            
+        }
+        
     }
 }

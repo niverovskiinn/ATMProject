@@ -106,7 +106,8 @@ namespace Engine.DataAccess
             modelBuilder.Entity<AccountStatus>().HasData(AccountStatusEnum.Active, AccountStatusEnum.Closed,
                 AccountStatusEnum.Frozen);
             modelBuilder.Entity<AccountType>().HasData(AccountTypeEnum.Credit, AccountTypeEnum.Debit);
-            modelBuilder.Entity<TransactionType>().HasData(TransactionTypeEnum.Withdraw, TransactionTypeEnum.ToUser);
+            modelBuilder.Entity<TransactionType>().HasData(TransactionTypeEnum.Withdraw, TransactionTypeEnum.ToUser, 
+                TransactionTypeEnum.Deposit);
 
             base.OnModelCreating(modelBuilder);
         }
