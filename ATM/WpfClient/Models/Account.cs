@@ -26,6 +26,7 @@ namespace WpfClient.Models
 {
     public class Account : IEntity
     {
+        #region Properties
         public int Id { get; set; }
 
         public int Type { get; set; }
@@ -41,5 +42,20 @@ namespace WpfClient.Models
         public ICollection<Card> Cards { get; set; }
 
         public string Notes { get; set; }
+        #endregion
+
+        //REMAKE ID -> GUID
+        public Account(int id, int type, decimal amountMoney, DateTime creation, int status, string ownerPassport, ICollection<Card> cards, string notes)
+        {
+            Id = id;
+            Type = type;
+            Status = status;
+            Creation = creation;
+            OwnerPassport = ownerPassport;
+            Cards = cards;
+            Notes = notes;
+        }
     }
+
+
 }

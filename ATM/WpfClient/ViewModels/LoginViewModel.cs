@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using WpfClient.Models;
 using WpfClient.Tools;
@@ -40,7 +34,7 @@ namespace WpfClient.ViewModels
             }
         }
 
-        public string Pin               // DO WE NEED SETTER?
+        public string Pin               
         {
             get { return _pin; }
             set
@@ -99,6 +93,12 @@ namespace WpfClient.ViewModels
             LoaderManager.Instance.HideLoader();
             if (result)
                 NavigationManager.Instance.Navigate(ViewType.Actions);
+
+
+            ////////////////////
+            NavigationManager.Instance.Navigate(ViewType.ShowAmount);
+            /// ///////////////
+            
         }
 
     }
