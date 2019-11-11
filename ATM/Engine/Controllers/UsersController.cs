@@ -37,8 +37,8 @@ namespace Engine.Controllers
             return "value" + r;
         }
 
-        // POST api/values
-        [HttpPost]
+        // POST api/values/login
+        [HttpPost("login")]
         public async Task<ActionResult<User>> Post([FromBody] dynamic data)
         {
             try
