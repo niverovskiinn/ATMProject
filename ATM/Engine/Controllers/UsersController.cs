@@ -39,12 +39,11 @@ namespace Engine.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] User user)
+        public async Task<ActionResult<User>> Post([FromBody] dynamic data)
         {
             try
             {
-                await _usersService.AddUser(user);
-                return Ok();
+                return Ok(_usersService.LoginToAtm(data));
             }
             catch (Exception ex)
             {
