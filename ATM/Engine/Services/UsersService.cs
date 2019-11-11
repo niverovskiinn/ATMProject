@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Engine.DataAccess.UnitOfWork;
 using Engine.Services.Utils;
 using Models;
+using Newtonsoft.Json;
 
 namespace Engine.Services
 {
@@ -17,8 +18,9 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<User> LoginToAtm(dynamic data)
+        public async Task<User> LoginToAtm(string str)
         {
+            dynamic data = JsonConvert.DeserializeObject(str);
             string cardNum = data.number;
             string pin = data.pincode;
 //            if (_unitOfWork.Repository<Card>().GetAsync(card => card.Number == cardNum).IsCompletedSuccessfully)
