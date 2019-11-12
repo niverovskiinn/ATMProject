@@ -40,18 +40,18 @@ namespace Engine.Controllers
         }
 
         // POST api/values/login
-//        [HttpPost("login")]
-//        public async Task<ActionResult<string>> Post([FromBody] dynamic data)
-//        {
-//            try
-//            {
-//                return Ok(_usersService.LoginToAtm(data)) ;
-//            }
-//            catch (Exception ex)
-//            {
-//                return StatusCode(500, "Internal server error\n" + ex);
-//            }
-//        }
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Post([FromBody] dynamic data)
+        {
+            try
+            {
+                return Ok(_usersService.LoginToAtm(data)) ;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error\n" + ex);
+            }
+        }
 
         // PUT api/values/5
         [HttpPut("{id}")]
