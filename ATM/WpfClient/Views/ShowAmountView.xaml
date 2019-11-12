@@ -19,8 +19,8 @@
          </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="16" Margin="20,10,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
                Content="Сhoose account"/>
-        <ComboBox Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="16" Margin="20,30,0,0" VerticalAlignment="Top" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
-        <Label Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="40" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding Info, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></Label>
+        <ComboBox Grid.Row="1" MinWidth="75" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" Margin="20,30,0,0" VerticalAlignment="Top" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="40" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding AmountInfo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></Label>
         <Button Name="BackButton" Grid.Row="3" Grid.Column="1" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
     </Grid>
 </UserControl>

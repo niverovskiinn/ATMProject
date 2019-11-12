@@ -15,7 +15,7 @@ namespace WpfClient.Tools.Managers
 
         internal static void Initialize()
         {
-            _client.BaseAddress = new Uri("http://localhost:18339/");
+            _client.BaseAddress = new Uri("https://localhost:5001/");
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -25,7 +25,7 @@ namespace WpfClient.Tools.Managers
         {
             User resultUser;
             //TODO URL
-            string url = "";
+            string url = "api/users/login";
             HttpResponseMessage response = await _client.PostAsJsonAsync(url,new {number=cardNumber,pincode=pin});
             //or use https://stackoverflow.com/questions/6117101/posting-jsonobject-with-httpclient-from-web-api
             response.EnsureSuccessStatusCode();

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WpfClient.Models;
@@ -29,8 +26,6 @@ namespace WpfClient.ViewModels
 
         #region Commands
 
-        //TODO MAKE SELECTIONCHANGED EVENT!!!!!!!!!!!!!
-
         private ICommand _backCommand;
         #endregion
         #endregion
@@ -55,8 +50,10 @@ namespace WpfClient.ViewModels
         {
             get { return _selectedAccount; }
             set
-            {
+            {                   //TODO clear all digits of account id except few of them, using one more method
+                                //TODO make cases by type of account, which info to show
                 _selectedAccount = value;
+                AmountInfo = $"Account number: {_selectedAccount.Id}\nAccount type: {_selectedAccount.Type}\n Amount of money: ";
                 OnPropertyChanged();
             }
         }
@@ -93,7 +90,7 @@ namespace WpfClient.ViewModels
 
         #region Commands
 
-        public ICommand SignInCommand
+        public ICommand BackCommand
         {
             get
             {

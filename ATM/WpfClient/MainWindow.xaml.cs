@@ -33,7 +33,8 @@ namespace WpfClient
         {
             //StationManager.Initialize(new SerializedDataStorage());
             NavigationManager.Instance.Initialize(new InitializationNavigationModel(this));
-            NavigationManager.Instance.Navigate(ViewType.Login);
+            //NavigationManager.Instance.Navigate(ViewType.Login);
+            NavigationManager.Instance.Navigate(ViewType.Deposit);
             ClientManager.Initialize();
         }
 
