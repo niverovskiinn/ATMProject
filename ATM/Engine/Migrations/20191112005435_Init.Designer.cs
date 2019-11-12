@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Engine.Migrations
 {
     [DbContext(typeof(AtmDbContext))]
-    [Migration("20191110161216_Init")]
+    [Migration("20191112005435_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,12 @@ namespace Engine.Migrations
                             Id = 1,
                             Description = "Send money to another person",
                             Name = "ToUser"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Deposit money to account",
+                            Name = "Deposit"
                         });
                 });
 
@@ -247,7 +253,7 @@ namespace Engine.Migrations
 
             modelBuilder.Entity("Models.Card", b =>
                 {
-                    b.HasOne("Models.Account", "Account")
+                    b.HasOne("Models.Account")
                         .WithMany("Cards")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);

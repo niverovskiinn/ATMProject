@@ -24,7 +24,11 @@ namespace Engine
         {
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddMvc()
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling =            
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddDbContext<DbContext, AtmDbContext>(builder => builder.UseSqlite(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -10,11 +10,11 @@ namespace Engine.DataAccess
         {
         }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            
-//            optionsBuilder.UseSqlite("Data Source=/Users/nikita/Documents/GitHub/ATMProject/ATM/Engine/DataAccess/AtmDb.db");
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            
+            optionsBuilder.UseSqlite("Data Source=/Users/nikita/Documents/GitHub/ATMProject/ATM/Engine/DataAccess/AtmDb.db");
+        }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountStatus> AccountStatuses { get; set; }

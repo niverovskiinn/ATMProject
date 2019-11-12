@@ -14,11 +14,11 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Account>> GetUserAccountsAsync(User user)
-        {
-            return await _unitOfWork.Repository<Account>().GetListAsync(
-                acc => acc.OwnerPassport == user.Passport);
-        }
+//        public async Task<IEnumerable<Account>> GetUserAccountsAsync(User user)
+//        {
+//            return await _unitOfWork.Repository<Account>().GetListAsync(
+//                acc => acc == user.Passport);
+//        }
 
         public async Task AddTransType()
         {

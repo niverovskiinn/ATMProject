@@ -5,6 +5,8 @@ using Engine.Services;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enum;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Engine.Controllers
 {
@@ -38,18 +40,18 @@ namespace Engine.Controllers
         }
 
         // POST api/values/login
-        [HttpPost("login")]
-        public async Task<ActionResult<User>> Post([FromBody] string data)
-        {
-            try
-            {
-                return await _usersService.LoginToAtm(data);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error\n" + ex);
-            }
-        }
+//        [HttpPost("login")]
+//        public async Task<ActionResult<string>> Post([FromBody] dynamic data)
+//        {
+//            try
+//            {
+//                return Ok(_usersService.LoginToAtm(data)) ;
+//            }
+//            catch (Exception ex)
+//            {
+//                return StatusCode(500, "Internal server error\n" + ex);
+//            }
+//        }
 
         // PUT api/values/5
         [HttpPut("{id}")]

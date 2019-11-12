@@ -18,13 +18,13 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Card>> GetUserCardsAsync(User user)
-        {
-            var acc = await _unitOfWork.Repository<Account>().GetListAsync(
-                account => account.OwnerPassport == user.Passport);
-            IEnumerable<Card> cards = new List<Card>();
-            return acc.Aggregate(cards, (current, ac) => current.Concat(ac.Cards.Where(card => card.AccountId == ac.Id)));
-        }
+//        public async Task<IEnumerable<Card>> GetUserCardsAsync(User user)
+//        {
+////            var acc = await _unitOfWork.Repository<Account>().GetListAsync(
+////                account => account.OwnerPassport == user.Passport);
+////            IEnumerable<Card> cards = new List<Card>();
+////            return acc.Aggregate(cards, (current, ac) => current.Concat(ac.Cards.Where(card => card.AccountId == ac.Id)));
+//        }
 
         public async Task ChangeCardPin(string cardNum, string newPin)
         {

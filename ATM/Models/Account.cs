@@ -19,10 +19,9 @@ namespace Models
         public virtual AccountStatus Status { get; set; }
 
 
-        public string OwnerPassport { get; set; }
+//        public string OwnerPassport { get; set; }
 
-        [ForeignKey("OwnerPassport")] public User Owner { get; set; }
-
+        public User Owner { get; set; }
         public ICollection<Card> Cards { get; set; }
 
         public string Notes { get; set; }

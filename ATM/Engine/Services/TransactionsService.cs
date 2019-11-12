@@ -18,25 +18,25 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Transaction>> GetUserAllTransAsync(string passport)
-        {
-            IEnumerable<Transaction> trans = new List<Transaction>();
-           
-            foreach (var ac in await _unitOfWork.Repository<Account>()
-                .GetListAsync(a => a.OwnerPassport == passport))
-            {
-                trans = trans.Concat(await _unitOfWork.Repository<Transaction>()
-                    .GetListAsync(tr => tr.AccountFromId == ac.Id));
-            }
-            
-            return trans;
-        }
+//        public async Task<IEnumerable<Transaction>> GetUserAllTransAsync(string passport)
+//        {
+//            IEnumerable<Transaction> trans = new List<Transaction>();
+//           
+//            foreach (var ac in await _unitOfWork.Repository<Account>()
+//                .GetListAsync(a => a.OwnerPassport == passport))
+//            {
+//                trans = trans.Concat(await _unitOfWork.Repository<Transaction>()
+//                    .GetListAsync(tr => tr.AccountFromId == ac.Id));
+//            }
+//            
+//            return trans;
+//        }
 
         //TODO check date format
         public async Task<IEnumerable<Transaction>> GetUserTransPeriodAsync(Account account, string fromStr, string toStr)
         {
-            var from = DateTime.ParseExact(fromStr, "yyyy-MM-dd HH:mm tt",null);
-            var to = DateTime.ParseExact(toStr, "yyyy-MM-dd HH:mm tt",null);
+            var from = DateTime.ParseExact(fromStr, "dd.MM.yyyy HH:mm:ss",null);
+            var to = DateTime.ParseExact(toStr, "dd.MM.yyyy HH:mm:ss",null);
             var accc = await _unitOfWork.Repository<Account>().GetAsync(acc => acc.Id == account.Id);
            return await _unitOfWork.Repository<Transaction>().GetListAsync(
                tran => tran.DateTime > from && tran.DateTime < to && tran.AccountFromId == accc.Id);
