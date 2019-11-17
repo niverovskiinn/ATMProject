@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Engine.Migrations
 {
     [DbContext(typeof(AtmDbContext))]
-    [Migration("20191112005435_Init")]
+    [Migration("20191117150559_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -253,7 +253,7 @@ namespace Engine.Migrations
 
             modelBuilder.Entity("Models.Card", b =>
                 {
-                    b.HasOne("Models.Account")
+                    b.HasOne("Models.Account", "Account")
                         .WithMany("Cards")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);

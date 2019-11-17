@@ -251,7 +251,7 @@ namespace Engine.Migrations
 
             modelBuilder.Entity("Models.Card", b =>
                 {
-                    b.HasOne("Models.Account")
+                    b.HasOne("Models.Account", "Account")
                         .WithMany("Cards")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
