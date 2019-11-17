@@ -5,7 +5,7 @@ namespace Models.Enum
     public enum TransactionTypeEnum
     {
         [Description("Withdraw cash from ATM")]
-        Withdraw,
+        Withdraw = 0,
 
         [Description("Send money to another person")]
         ToUser,
