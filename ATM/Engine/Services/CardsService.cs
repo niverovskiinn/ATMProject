@@ -20,37 +20,64 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-        
-        public async Task ChangeCardPin(string cardNum, string newPin)
+
+        public async Task ChangeCardPin(dynamic data)
         {
-            var card = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == cardNum);
-            card.PinHash = CryptoHash.ComputeHash(newPin, new MD5CryptoServiceProvider());
-            _unitOfWork.Repository<Card>().Update(card);
-            await _unitOfWork.SaveChangesAsync();
+            try
+            {
+                string cardNum = data["card_num"];
+                string newPin = data["new_pin"];
+                var card = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == cardNum);
+                card.PinHash = CryptoHash.ComputeHash(newPin, new MD5CryptoServiceProvider());
+                _unitOfWork.Repository<Card>().Update(card);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("Incorrect \"card_num\" or \"new_pin\"");
+            }
         }
 
         public async Task<IEnumerable<Card>> GetCardsAsync(dynamic userPassport)
         {
             try
             {
-            string passport = userPassport["passport"];
-            var acc = await _unitOfWork.Repository<Account>().GetListAsync(
-                ac => ac.OwnerPassport == passport);
+                string passport = userPassport["passport"];
+                var acc = await _unitOfWork.Repository<Account>().GetListAsync(
+                    ac => ac.OwnerPassport == passport);
 
-            var cards = new List<Card>();
-            
-            foreach (var ac in acc)
-            {
-                cards.AddRange(await  _unitOfWork.Repository<Card>().GetListAsync(
-                    c => c.AccountId == ac.Id));
-            }
-            return cards;
+                var cards = new List<Card>();
+
+                foreach (var ac in acc)
+                {
+                    cards.AddRange(await _unitOfWork.Repository<Card>().GetListAsync(
+                        c => c.AccountId == ac.Id));
+                }
+
+                return cards;
             }
             catch (InvalidOperationException)
             {
                 throw new Exception("Incorrect \"passport\"");
             }
         }
+
+
+        public async Task<decimal> GetMoneyOnCard(dynamic data)
+        {
+            try
+            {
+                string cardNum = data["number"];
+                var card = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == cardNum);
+                var acc = await _unitOfWork.Repository<Account>().GetAsync(a => a.Id == card.AccountId);
+                return acc.AmountMoney;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("Incorrect card \"number\"");
+            }
+        }
+
         
     }
 }

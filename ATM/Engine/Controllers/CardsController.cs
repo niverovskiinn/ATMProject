@@ -12,14 +12,15 @@ namespace Engine.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CardsController:ControllerBase
+    public class CardsController : ControllerBase
     {
         private readonly CardsService _cardsService;
+
         public CardsController(CardsService cards)
         {
             _cardsService = cards;
         }
-        
+
 
         [HttpPost("user")]
         public async Task<ActionResult<IEnumerable<Card>>> PostAllUserCards([FromBody] dynamic userId)

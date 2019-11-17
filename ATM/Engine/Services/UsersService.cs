@@ -26,7 +26,7 @@ namespace Engine.Services
             try
             {
                 string cardNum = data["number"];
-                string pin = data["pincode"];
+                string pin = data["pin_code"];
 
 
                 var card = await _unitOfWork.Repository<Card>().GetAsync(
@@ -39,7 +39,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"number\" & \"pincode\"");
+                throw new Exception("Incorrect \"number\" & \"pin_code\"");
             }
             
         }
