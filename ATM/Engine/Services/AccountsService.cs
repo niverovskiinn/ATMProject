@@ -20,6 +20,13 @@ namespace Engine.Services
 //                acc => acc == user.Passport);
 //        }
 
+        public async Task<Account> GetAccAsync(dynamic data)
+        {
+            int id = data["id"];
+            return await _unitOfWork.Repository<Account>().GetAsync(
+                acc => acc.Id == id);
+        }
+
         public async Task AddTransType()
         {
             

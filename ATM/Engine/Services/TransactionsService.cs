@@ -18,19 +18,18 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-//        public async Task<IEnumerable<Transaction>> GetUserAllTransAsync(string passport)
-//        {
-//            IEnumerable<Transaction> trans = new List<Transaction>();
-//           
-//            foreach (var ac in await _unitOfWork.Repository<Account>()
-//                .GetListAsync(a => a.OwnerPassport == passport))
-//            {
-//                trans = trans.Concat(await _unitOfWork.Repository<Transaction>()
-//                    .GetListAsync(tr => tr.AccountFromId == ac.Id));
-//            }
-//            
-//            return trans;
-//        }
+        public async Task<IEnumerable<Transaction>> GetUserAllTransAsync(string passport)
+        {
+            var trans = new List<Transaction>();
+            var acc = await _unitOfWork.Repository<Account>()
+                .GetListAsync(a => a.OwnerPassport == passport);
+            foreach (var ac in acc)
+            {
+                trans.AddRange(await _unitOfWork.Repository<Transaction>()
+                    .GetListAsync(tr => tr.AccountFromId == ac.Id));
+            }
+            return trans;
+        }
 
         //TODO check date format
         public async Task<IEnumerable<Transaction>> GetUserTransPeriodAsync(Account account, string fromStr, string toStr)
@@ -39,24 +38,22 @@ namespace Engine.Services
             var to = DateTime.ParseExact(toStr, "dd.MM.yyyy HH:mm:ss",null);
             var accc = await _unitOfWork.Repository<Account>().GetAsync(acc => acc.Id == account.Id);
            return await _unitOfWork.Repository<Transaction>().GetListAsync(
-               tran => tran.DateTime > from && tran.DateTime < to && tran.AccountFromId == accc.Id);
+               tran => tran.DateTimeTr > from && tran.DateTimeTr < to && tran.AccountFromId == accc.Id);
         }
 
 
         public async Task<ActionResult<string>> WithdrawCash(Account account, decimal amount)
         {
-            amount = account.Type == AccountTypeEnum.Credit ? amount * 1.12m : amount;
+            amount = (AccountTypeEnum)account.TypeId == AccountTypeEnum.Credit ? amount * 1.12m : amount;
             if (account.AmountMoney < amount)
                 return "NOT ENOUGH MONEY";
             _unitOfWork.Repository<Transaction>().Add(new Transaction
             {
-                DateTime = DateTime.Now,
+                DateTimeTr = DateTime.Now,
                 Type = TransactionTypeEnum.Withdraw,
                 AmountMoney = amount,
                 AccountFromId = account.Id,
                 AccountToId = null,
-                From = account,
-                To = null
             });
             account.AmountMoney -= amount;
             await _unitOfWork.SaveChangesAsync();
@@ -65,22 +62,21 @@ namespace Engine.Services
 
         public async Task<ActionResult<string>> SendMoney(Account from, string cardNumTo, decimal amount)
         {
-            amount = from.Type == AccountTypeEnum.Credit ? amount * 1.12m : amount;
+            amount = (AccountTypeEnum)from.TypeId == AccountTypeEnum.Credit ? amount * 1.12m : amount;
             if (from.AmountMoney < amount)
                 return "NOT ENOUGH MONEY";
-            
+
+            var cardTo = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == cardNumTo);
             var to = await _unitOfWork.Repository<Account>()
-                .GetAsync(account => account.Cards.Any(card => card.Number == cardNumTo));
+                .GetAsync(account => account.Id == cardTo.AccountId);
             
             _unitOfWork.Repository<Transaction>().Add(new Transaction
             {
-                DateTime = DateTime.Now,
+                DateTimeTr = DateTime.Now,
                 Type = TransactionTypeEnum.ToUser,
                 AmountMoney = amount,
                 AccountFromId = from.Id,
                 AccountToId = to.Id,
-                From = from,
-                To = to
             });
             from.AmountMoney -= amount;
             to.AmountMoney += amount;

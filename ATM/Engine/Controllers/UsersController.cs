@@ -15,55 +15,26 @@ namespace Engine.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UsersService _usersService;
-// PUT    api/users?id=5&team=2
-//        PutUserTeam(int id, int team, [FromBody] User value)
 
-        // GET api/values
-        
         public UsersController(UsersService usersService)
         {
             _usersService = usersService;
         }
-        
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new[] {"value1", "value2"};
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id, int r)
-        {
-            var l = (AccountTypeEnum) id;
-            return "value" + r;
-        }
-
-        // POST api/values/login
+      
+        // POST api/users/login
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Post([FromBody] dynamic data)
+        public async Task<ActionResult<User>> Post([FromBody] dynamic data)
         {
             try
             {
-                return Ok(_usersService.LoginToAtm(data)) ;
+                var user = await _usersService.LoginToAtm(data);
+                return Ok(user) ;
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error\n" + ex);
+                return StatusCode(500, ex.Message);
             }
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            return Ok();
-        }
+        
     }
 }

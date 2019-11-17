@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,14 +20,7 @@ namespace Engine.Services
             _unitOfWork = unitOfWork;
         }
 
-//        public async Task<IEnumerable<Card>> GetUserCardsAsync(User user)
-//        {
-////            var acc = await _unitOfWork.Repository<Account>().GetListAsync(
-////                account => account.OwnerPassport == user.Passport);
-////            IEnumerable<Card> cards = new List<Card>();
-////            return acc.Aggregate(cards, (current, ac) => current.Concat(ac.Cards.Where(card => card.AccountId == ac.Id)));
-//        }
-
+        
         public async Task ChangeCardPin(string cardNum, string newPin)
         {
             var card = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == cardNum);
@@ -33,5 +28,29 @@ namespace Engine.Services
             _unitOfWork.Repository<Card>().Update(card);
             await _unitOfWork.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Card>> GetCardsAsync(dynamic userPassport)
+        {
+            try
+            {
+            string passport = userPassport["passport"];
+            var acc = await _unitOfWork.Repository<Account>().GetListAsync(
+                ac => ac.OwnerPassport == passport);
+
+            var cards = new List<Card>();
+            
+            foreach (var ac in acc)
+            {
+                cards.AddRange(await  _unitOfWork.Repository<Card>().GetListAsync(
+                    c => c.AccountId == ac.Id));
+            }
+            return cards;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("Incorrect \"passport\"");
+            }
+        }
+        
     }
 }

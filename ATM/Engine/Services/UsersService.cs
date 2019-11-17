@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Engine.DataAccess.UnitOfWork;
@@ -21,13 +23,25 @@ namespace Engine.Services
 
         public async Task<User> LoginToAtm(dynamic data)
         {
-            string cardNum = data["number"];
-            string pin = data["pincode"];
-            var ac = await  _unitOfWork.Repository<Account>().GetAsync(
-                acc => acc.Cards.Any(card => card.Number == cardNum && 
-                                             pin == CryptoHash.ComputeHash(pin,new MD5CryptoServiceProvider())));
-            return await _unitOfWork.Repository<User>().GetAsync(
-                user => user.Accounts.Any(acc=>acc.Id == ac.Id));
+            try
+            {
+                string cardNum = data["number"];
+                string pin = data["pincode"];
+
+
+                var card = await _unitOfWork.Repository<Card>().GetAsync(
+                    c => c.Number == cardNum && c.PinHash ==
+                         CryptoHash.ComputeHash(pin, new MD5CryptoServiceProvider()));
+                var ac = await _unitOfWork.Repository<Account>().GetAsync(
+                    acc => acc.Id == card.AccountId);
+                return await _unitOfWork.Repository<User>().GetAsync(
+                    user => user.Passport == ac.OwnerPassport);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("Incorrect \"number\" & \"pincode\"");
+            }
+            
         }
     }
 }
