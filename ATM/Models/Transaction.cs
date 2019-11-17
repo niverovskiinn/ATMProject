@@ -9,20 +9,15 @@ namespace Models
     {
         [Key] public int Id { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime DateTimeTr { get; set; }
 
         public virtual TransactionType Type { get; set; }
 
         public decimal AmountMoney { get; set; }
 
         public int AccountFromId { get; set; }
-
-        [ForeignKey("AccountFromId")] public Account From { get; set; }
-
         public int? AccountToId { get; set; }
-
-        [ForeignKey("AccountToId")] public Account To { get; set; }
-
+        
         public string Notes { get; set; }
     }
 }

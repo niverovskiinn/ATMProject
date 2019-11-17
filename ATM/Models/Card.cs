@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
@@ -17,9 +18,7 @@ namespace Models
 
 
         public int AccountId { get; set; }
-
-//        public Account Account { get; set; }
-
+        
         public string Notes { get; set; }
     }
 }

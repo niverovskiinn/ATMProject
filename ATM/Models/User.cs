@@ -36,10 +36,7 @@ namespace Models
         public string HouseNum { get; set; }
 
         public string ApartmentNum { get; set; }
-
-
-        public ICollection<Account> Accounts { get; set; }
-
+        
         public string Notes { get; set; }
     }
 }
