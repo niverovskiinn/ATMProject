@@ -91,7 +91,7 @@ namespace Engine.Controllers
         
         // POST api/transactions/send
         // send your money from account to another account
-        // need id of "account", money "amount" and "notes"(must be, can be "")
+        // need id of "account" from, card "number" to,  money "amount" and "notes"(must be, can be "")
         [HttpPost("send")]
         public async Task<ActionResult<string>> PostSend([FromBody] dynamic data)
         {
@@ -102,7 +102,7 @@ namespace Engine.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, ex);
             }
         }
     }

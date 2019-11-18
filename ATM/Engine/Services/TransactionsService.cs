@@ -50,7 +50,7 @@ namespace Engine.Services
                 DateTime to = DateTime.ParseExact(data["to"], "dd.MM.yyyy HH:mm:ss", null);
                 var accc = await _unitOfWork.Repository<Account>().GetAsync(acc => acc.Id == account.Id);
                 return await _unitOfWork.Repository<Transaction>().GetListAsync(
-                    tran => tran.DateTimeTr > from && tran.DateTimeTr < to && (tran.AccountFromId == accc.Id ||
+                    tran => tran.DateTime > from && tran.DateTime < to && (tran.AccountFromId == accc.Id ||
                                                                                tran.AccountToId == accc.Id &&
                                                                                tran.AccountToId != tran.AccountFromId));
             }
@@ -74,8 +74,8 @@ namespace Engine.Services
                     return "NOT ENOUGH MONEY";
                 _unitOfWork.Repository<Transaction>().Add(new Transaction
                 {
-                    DateTimeTr = DateTime.Now,
-                    Type = TransactionTypeEnum.Withdraw,
+                    DateTime = DateTime.Now,
+                    TypeId = (int) TransactionTypeEnum.Withdraw,
                     AmountMoney = amount,
                     AccountFromId = account.Id,
                     AccountToId = null,
@@ -112,8 +112,8 @@ namespace Engine.Services
 
                 _unitOfWork.Repository<Transaction>().Add(new Transaction
                 {
-                    DateTimeTr = DateTime.Now,
-                    Type = TransactionTypeEnum.ToUser,
+                    DateTime = DateTime.Now,
+                    TypeId = (int) TransactionTypeEnum.ToUser,
                     AmountMoney = amount,
                     AccountFromId = from.Id,
                     AccountToId = to.Id,
@@ -140,8 +140,8 @@ namespace Engine.Services
                 var acc = await _unitOfWork.Repository<Account>().GetAsync(ac => ac.Id == id);
                 _unitOfWork.Repository<Transaction>().Add(new Transaction
                 {
-                    DateTimeTr = DateTime.Now,
-                    Type = TransactionTypeEnum.Deposit,
+                    DateTime = DateTime.Now,
+                    TypeId = (int) TransactionTypeEnum.Deposit,
                     AmountMoney = amount,
                     AccountFromId = acc.Id,
                     AccountToId = acc.Id,

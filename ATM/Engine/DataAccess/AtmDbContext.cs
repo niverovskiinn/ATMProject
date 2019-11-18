@@ -17,12 +17,7 @@ namespace Engine.DataAccess
         }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AccountStatus> AccountStatuses { get; set; }
-        public DbSet<AccountType> AccountTypes { get; set; }
-
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransactionType> TransactionTypes { get; set; }
-
         public DbSet<Card> Cards { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -102,13 +97,7 @@ namespace Engine.DataAccess
 ////            modelBuilder.Entity<Transaction>().HasData(transactions);
 
             #endregion
-
-            modelBuilder.Entity<AccountStatus>().HasData(AccountStatusEnum.Active, AccountStatusEnum.Closed,
-                AccountStatusEnum.Frozen);
-            modelBuilder.Entity<AccountType>().HasData(AccountTypeEnum.Credit, AccountTypeEnum.Debit);
-            modelBuilder.Entity<TransactionType>().HasData(TransactionTypeEnum.Withdraw, TransactionTypeEnum.ToUser, 
-                TransactionTypeEnum.Deposit);
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

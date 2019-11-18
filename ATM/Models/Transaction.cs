@@ -9,9 +9,9 @@ namespace Models
     {
         [Key] public int Id { get; set; }
 
-        public DateTime DateTimeTr { get; set; }
+        public DateTime DateTime { get; set; }
 
-        public virtual TransactionType Type { get; set; }
+        public int TypeId { get; set; }
 
         public decimal AmountMoney { get; set; }
 
