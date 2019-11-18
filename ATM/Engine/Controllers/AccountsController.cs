@@ -20,12 +20,12 @@ namespace Engine.Controllers
         }
         
         
-        // POST api/values
-        [HttpPost]
-        public async Task<ActionResult<Account>> Post([FromBody] dynamic data)
+        // POST api/accounts/by_id
+        // get account 
+        // need "id" account
+        [HttpPost("by_id")]
+        public async Task<ActionResult<Account>> PostGetAccount([FromBody] dynamic data)
         {
-            
-            
             try
             {
                var acc = await _accountsService.GetAccAsync(data);
@@ -33,21 +33,42 @@ namespace Engine.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error\n" + ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // POST api/accounts/list
+        // get accounts 
+        // need "passport" user
+        [HttpPost("list")]
+        public async Task<ActionResult<IEnumerable<Account>>> PostGetAccountsList([FromBody] dynamic data)
         {
+            try
+            {
+                var acc = await _accountsService.GetUserAccountsAsync(data);
+                return Ok(acc);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        // POST api/accounts/froze
+        // froze account 
+        // need "passport" user
+        [HttpPost("froze")]
+        public async Task<ActionResult> PostSetAccFrozen([FromBody] dynamic data)
         {
-            return Ok();
+            try
+            {
+                await _accountsService.SetAccFrozen(data);
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

@@ -29,9 +29,9 @@ namespace Engine.Services
                 foreach (var ac in acc)
                 {
                     trans.AddRange(await _unitOfWork.Repository<Transaction>()
-                        .GetListAsync(tr => tr.AccountFromId == ac.Id));
+                        .GetListAsync(tr => tr.AccountFromId == ac.Id ||
+                                            tr.AccountToId == ac.Id && tr.AccountToId != tr.AccountFromId));
                 }
-
                 return trans;
             }
             catch (InvalidOperationException)
@@ -50,7 +50,9 @@ namespace Engine.Services
                 DateTime to = DateTime.ParseExact(data["to"], "dd.MM.yyyy HH:mm:ss", null);
                 var accc = await _unitOfWork.Repository<Account>().GetAsync(acc => acc.Id == account.Id);
                 return await _unitOfWork.Repository<Transaction>().GetListAsync(
-                    tran => tran.DateTimeTr > from && tran.DateTimeTr < to && tran.AccountFromId == accc.Id);
+                    tran => tran.DateTimeTr > from && tran.DateTimeTr < to && (tran.AccountFromId == accc.Id ||
+                                                                               tran.AccountToId == accc.Id &&
+                                                                               tran.AccountToId != tran.AccountFromId));
             }
             catch (InvalidOperationException)
             {
@@ -65,6 +67,7 @@ namespace Engine.Services
             {
                 decimal amount = data["amount"];
                 int id = data["account"];
+                string notes = data["notes"];
                 var account = await _unitOfWork.Repository<Account>().GetAsync(ac => ac.Id == id);
                 amount = (AccountTypeEnum) account.TypeId == AccountTypeEnum.Credit ? amount * 1.15m : amount;
                 if (account.AmountMoney < amount)
@@ -76,6 +79,9 @@ namespace Engine.Services
                     AmountMoney = amount,
                     AccountFromId = account.Id,
                     AccountToId = null,
+                    Notes = (AccountTypeEnum) account.TypeId == AccountTypeEnum.Credit
+                        ? "15 percent fee\n" + notes
+                        : notes
                 });
                 account.AmountMoney -= amount;
                 await _unitOfWork.SaveChangesAsync();
@@ -83,7 +89,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"amount\" or \"account\" ");
+                throw new Exception("Incorrect \"amount\" or \"account\" or \"notes\"");
             }
         }
 
@@ -94,6 +100,7 @@ namespace Engine.Services
                 string cardNumTo = data["number"];
                 decimal amount = data["amount"];
                 int id = data["account"];
+                string notes = data["notes"];
                 var from = await _unitOfWork.Repository<Account>().GetAsync(ac => ac.Id == id);
                 amount = (AccountTypeEnum) from.TypeId == AccountTypeEnum.Credit ? amount * 1.1m : amount;
                 if (from.AmountMoney < amount)
@@ -110,7 +117,9 @@ namespace Engine.Services
                     AmountMoney = amount,
                     AccountFromId = from.Id,
                     AccountToId = to.Id,
-                });
+                    Notes = (AccountTypeEnum) from.TypeId == AccountTypeEnum.Credit
+                        ? "10 percent fee\n" + notes
+                        : notes});
                 from.AmountMoney -= amount;
                 to.AmountMoney += amount;
                 await _unitOfWork.SaveChangesAsync();
@@ -118,7 +127,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"number\" or \"amount\" or \"account\" ");
+                throw new Exception("Incorrect \"number\" or \"amount\" or \"account\" or \"notes\"");
             }
         }
 
@@ -146,9 +155,6 @@ namespace Engine.Services
                 throw new Exception("Incorrect \"amount\" or \"account\" ");
             }
         }
-
-        //
-        //TODO  getmoney, frozenaccount
-        //
+        
     }
 }
