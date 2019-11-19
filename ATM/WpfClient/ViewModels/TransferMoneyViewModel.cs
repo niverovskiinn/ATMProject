@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -23,6 +24,7 @@ namespace WpfClient.ViewModels
         private Account _selectedAccount;
         private string _recipientCard;
         private string _amount = "0";
+        private string _notes;
 
         private Visibility _loaderVisibility = Visibility.Hidden;
         private bool _isControlEnabled = true;
@@ -81,6 +83,16 @@ namespace WpfClient.ViewModels
             }
         }
 
+        public string Notes
+        {
+            get { return _notes; }
+            set
+            {
+                _notes = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Visibility LoaderVisibility
         {
             get { return _loaderVisibility; }
@@ -131,6 +143,7 @@ namespace WpfClient.ViewModels
             Amount = "0";
             RecipientCard = "";
             SelectedAccount = Accounts?[0];
+            Notes = "";
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
@@ -140,9 +153,31 @@ namespace WpfClient.ViewModels
                    !String.IsNullOrWhiteSpace(_recipientCard);
         }
 
-        private void SendImplementation(object o) //TODO DO YOU REALLY WANT TO SEND????MB INSERT PASSWORD OF CARD INSERTED TO ATM
+        private async void SendImplementation(object o) //TODO DO YOU REALLY WANT TO SEND????MB INSERT PASSWORD OF CARD INSERTED TO ATM
         {
-            MessageBox.Show($"SenderId: {SelectedAccount.Id}\nRecipientCard: {RecipientCard}\nAmount: {Amount}");
+            MessageBox.Show($"SenderId: {SelectedAccount.Id}\nRecipientCard: {RecipientCard}\nAmount: {Amount}\nNotes: {Notes}");
+            LoaderManager.Instance.ShowLoader();
+            
+            var result = await Task.Run(() =>
+            {
+                bool res = false;
+                try
+                {
+                    res = ClientManager.Instance.SendMoneyToCard(SelectedAccount.Id, RecipientCard, Convert.ToDecimal(Amount.Trim()),Notes.Trim());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Operation failed.\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+            if (result)
+            {
+                MessageBox.Show("Transaction successful!");
+                NavigationManager.Instance.Navigate(ViewType.Actions);
+            }
         }
 
         public async void Initialize()

@@ -65,6 +65,18 @@ namespace WpfClient.Tools.Managers
             return response.Content.ReadAsAsync<List<Account>>().Result;
         }
 
+        internal bool SendMoneyToCard(int accId, string recipientCard, decimal am, string not)
+        {
+            string uri = "api/transactions/send";
+
+            var response = _client.PostAsJsonAsync(uri, new { account = accId, number = recipientCard, amount = am, notes = not}).Result;
+            response.EnsureSuccessStatusCode();
+            //if (!response.IsSuccessStatusCode)
+            //    throw new InvalidOperationException(response.Content.ToString());
+
+            return true;
+        }
+
         internal void Initialize()
         {
             _client = new HttpClient();

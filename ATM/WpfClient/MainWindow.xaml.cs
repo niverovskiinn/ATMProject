@@ -25,7 +25,8 @@ namespace WpfClient
         {
             NavigationManager.Instance.Initialize(new InitializationNavigationModel(this));
             //NavigationManager.Instance.Navigate(ViewType.Login);
-            NavigationManager.Instance.Navigate(ViewType.TransferMoney);
+            NavigationManager.Instance.Navigate(ViewType.Actions);
+            //NavigationManager.Instance.Navigate(ViewType.TransferMoney);
             ClientManager.Instance.Initialize();
         }
 

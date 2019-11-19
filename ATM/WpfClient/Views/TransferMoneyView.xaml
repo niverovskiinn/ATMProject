@@ -14,6 +14,8 @@
             <RowDefinition Height ="2*"/>
             <RowDefinition Height ="2*"/>
             <RowDefinition Height ="2*"/>
+            <RowDefinition Height ="2*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,7 +33,10 @@
         <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold" FontSize="18" Margin="70,10,40,0" VerticalAlignment="Center" HorizontalContentAlignment="Right"
                Content="Amount:"/>
         <TextBox Grid.Row="4" Grid.Column="1" FontWeight="Bold" FontSize="18" Margin="80,10,70,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <Button Name="BackButton" Grid.Row="5" Grid.Column="0" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
-        <Button Name="SendButton" Grid.Row="5" Grid.Column="1" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Send" Command="{Binding SendCommand}"></Button>
+        <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold" FontSize="18" Margin="70,10,40,0" VerticalAlignment="Center" HorizontalContentAlignment="Right"
+               Content="Notes:"/>
+        <TextBox Grid.Row="5" Grid.Column="1" FontWeight="Bold" FontSize="18" Margin="10,10,10,10" TextWrapping="Wrap"  VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button Name="BackButton" Grid.Row="6" Grid.Column="0" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
+        <Button Name="SendButton" Grid.Row="6" Grid.Column="1" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Send" Command="{Binding SendCommand}"></Button>
     </Grid>
 </UserControl>

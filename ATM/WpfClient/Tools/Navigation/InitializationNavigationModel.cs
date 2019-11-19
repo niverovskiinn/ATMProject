@@ -35,6 +35,9 @@ namespace WpfClient.Tools.Navigation
                 case ViewType.Withdraw:
                     ViewsDictionary.Add(viewType, new WithdrawView());
                     break;
+                case ViewType.Freeze:
+                    ViewsDictionary.Add(viewType, new FreezeView());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);
             }

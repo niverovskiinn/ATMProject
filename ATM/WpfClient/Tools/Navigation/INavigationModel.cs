@@ -9,6 +9,7 @@
         Withdraw,
         TransferMoney,
         ShowAmount,
+        Freeze
     }
 
     interface INavigationModel

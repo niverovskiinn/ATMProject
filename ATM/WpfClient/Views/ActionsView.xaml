@@ -7,6 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="2*"/>
+            <RowDefinition Height ="2*"/>
+            <RowDefinition Height ="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="ShowAmountButton" Grid.Row="0" Grid.Column="0" Margin="10" FontSize="16" Content="Show Balance of Account" Command="{Binding ShowAmountCommand}"></Button>
+        <Button Name="TransferButton" Grid.Row="0" Grid.Column="1" Margin="10" FontSize="16" Content="Transfer Money" Command="{Binding TransferMoneyCommand}"></Button>
+        <Button Name="DepositButton" Grid.Row="0" Grid.Column="2" Margin="10" FontSize="16" Content="Deposit Money" Command="{Binding DepositCommand}"></Button>
+        <Button Name="WithdrawButton" Grid.Row="1" Grid.Column="0" Margin="10" FontSize="16" Content="Withdraw Cash" Command="{Binding WithdrawCommand}"></Button>
+        <Button Name="HistoryButton" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="16" Content="History" Command="{Binding HistoryCommand}"></Button>
+        <Button Name="FreezeButton" Grid.Row="1" Grid.Column="2" Margin="10" FontSize="16" Content="Freeze Account" Command="{Binding FreezeCommand}"></Button>
+        <Button Name="LogOutButton" Grid.Row="2" Grid.Column="2" Margin="10" FontSize="16" Content="Log Out" Command="{Binding LogOutCommand}"></Button>
+        
     </Grid>
 </UserControl>

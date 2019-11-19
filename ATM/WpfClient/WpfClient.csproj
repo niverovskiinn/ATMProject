@@ -95,6 +95,7 @@
     <Compile Include="Tools\BaseViewModel.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\DepositViewModel.cs" />
+    <Compile Include="ViewModels\FreezeViewModel.cs" />
     <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -106,6 +107,9 @@
     </Compile>
     <Compile Include="Views\DepositView.xaml.cs">
       <DependentUpon>DepositView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FreezeView.xaml.cs">
+      <DependentUpon>FreezeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
@@ -147,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DepositView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FreezeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

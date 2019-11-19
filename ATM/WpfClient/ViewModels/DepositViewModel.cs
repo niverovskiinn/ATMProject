@@ -22,7 +22,7 @@ namespace WpfClient.ViewModels
         /// </summary>
         private ObservableCollection<Account> _accountsToDeposit;
         private Account _selectedAccountToDeposit;
-        private string _depositAmount;
+        private string _depositAmount = "";
 
         private Visibility _loaderVisibility = Visibility.Hidden;
         private bool _isControlEnabled = true;
@@ -98,6 +98,7 @@ namespace WpfClient.ViewModels
         {
             get
             {
+                DepositAmount = "0";
                 return _backCommand ?? (_backCommand =
                            new RelayCommand<object>(BackImplementation));
             }
@@ -108,13 +109,18 @@ namespace WpfClient.ViewModels
             get
             {
                 return _enterCommand ?? (_enterCommand =
-                           new RelayCommand<object>(DepositCashImplementation));
+                           new RelayCommand<object>(DepositCashImplementation,CanEnterExecute));
             }
         }
 
         #endregion
 
         #endregion
+
+        private bool CanEnterExecute(object obj)
+        {
+            return !String.IsNullOrWhiteSpace(_depositAmount) && !String.Equals("0",_depositAmount);
+        }
 
 
         private void BackImplementation(object o)
