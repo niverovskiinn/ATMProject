@@ -29,30 +29,28 @@ namespace WpfClient.Models
         #region Properties
         public int Id { get; set; }
 
-        public int Type { get; set; }
+        public int TypeId { get; set; }
 
         public decimal AmountMoney { get; set; }
 
         public DateTime Creation { get; set; }
 
-        public int Status { get; set; }
+        public int StatusId { get; set; }
 
         public string OwnerPassport { get; set; }
-
-        public ICollection<Card> Cards { get; set; }
 
         public string Notes { get; set; }
         #endregion
 
-        //REMAKE ID -> GUID
-        public Account(int id, int type, decimal amountMoney, DateTime creation, int status, string ownerPassport, ICollection<Card> cards, string notes)
+
+        public Account(int id, int typeId, decimal amountMoney, DateTime creation, int statusId, string ownerPassport, string notes)
         {
             Id = id;
-            Type = type;
-            Status = status;
+            TypeId = typeId;
+            AmountMoney = amountMoney;
             Creation = creation;
+            StatusId = statusId;
             OwnerPassport = ownerPassport;
-            Cards = cards;
             Notes = notes;
         }
     }

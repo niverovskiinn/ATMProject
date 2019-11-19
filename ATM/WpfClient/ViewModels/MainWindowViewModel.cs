@@ -11,6 +11,7 @@ namespace WpfClient.ViewModels
         private bool _isControlEnabled = true;
         #endregion
 
+
         #region Properties
         public Visibility LoaderVisibility
         {

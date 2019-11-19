@@ -53,7 +53,7 @@ namespace WpfClient.ViewModels
             {                   //TODO clear all digits of account id except few of them, using one more method
                                 //TODO make cases by type of account, which info to show
                 _selectedAccount = value;
-                AmountInfo = $"Account number: {_selectedAccount.Id}\nAccount type: {_selectedAccount.Type}\n Amount of money: ";
+                AmountInfo = $"Account number: {_selectedAccount.Id}\nAccount type: {_selectedAccount.TypeId}\n Amount of money: ";
                 OnPropertyChanged();
             }
         }
@@ -114,9 +114,9 @@ namespace WpfClient.ViewModels
         {
             this._accounts = new ObservableCollection<Account>()
             {
-                new Account(1,0,3m,DateTime.Now,0,"ab",new LinkedList<Card>(), ""),
-                new Account(2,0,3m,DateTime.Now,0,"bc",new LinkedList<Card>(), ""),
-                new Account(3,0,3m,DateTime.Now,0,"cd",new LinkedList<Card>(), "")
+                new Account(1,0,3m,DateTime.Now,0,"ab",""),
+                new Account(2,0,3m,DateTime.Now,0,"bc",""),
+                new Account(3,0,3m,DateTime.Now,0,"cd","")
             };
             this.SelectedAccount = Accounts[0];
         }

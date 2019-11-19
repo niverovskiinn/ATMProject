@@ -133,9 +133,9 @@ namespace WpfClient.ViewModels
         {
             this._accountsToDeposit = new ObservableCollection<Account>()
             {
-                new Account(1,0,3m,DateTime.Now,0,"ab",new LinkedList<Card>(), ""),
-                new Account(2,0,3m,DateTime.Now,0,"bc",new LinkedList<Card>(), ""),
-                new Account(3,0,3m,DateTime.Now,0,"cd",new LinkedList<Card>(), "")
+                new Account(1,0,3m,DateTime.Now,0,"ab", ""),
+                new Account(2,0,3m,DateTime.Now,0,"bc", ""),
+                new Account(3,0,3m,DateTime.Now,0,"cd","")
             };
             this.SelectedAccountToDeposit = AccountsToDeposit[0];
         }

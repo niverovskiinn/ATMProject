@@ -11,22 +11,9 @@ namespace WpfClient.Tools.Managers
 
         internal static User CurrentUser { get; set; }
 
-        //private static IDataStorage _dataStorage;
-
-        //internal static IDataStorage DataStorage
-        //{
-        //    get { return _dataStorage; }
-        //}
-
-        //internal static void Initialize(IDataStorage dataStorage)
-        // {
-        //   _dataStorage = dataStorage;
-        //}
-
-
         internal static void CloseApp()
         {
-            MessageBox.Show("Shutting Down");
+            //MessageBox.Show("Shutting Down");
             StopThreads?.Invoke();
             Environment.Exit(1);
         }

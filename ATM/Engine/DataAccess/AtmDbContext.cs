@@ -13,7 +13,7 @@ namespace Engine.DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
-            optionsBuilder.UseSqlite("Data Source=/Users/nikita/Documents/GitHub/ATMProject/ATM/Engine/DataAccess/AtmDb.db");
+            optionsBuilder.UseSqlite("Data Source=D:\\Visual Studio 17 Projects\\3rd year\\C#\\ATM\\ATMProject\\ATM\\Engine\\DataAccess\\AtmDb.db");
         }
 
         public DbSet<Account> Accounts { get; set; }

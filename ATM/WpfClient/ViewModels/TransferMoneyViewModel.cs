@@ -1,12 +1,192 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using WpfClient.Models;
+using WpfClient.Tools;
+using WpfClient.Tools.Managers;
+using WpfClient.Tools.Navigation;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WpfClient.ViewModels
 {
-    class TransferMoneyViewModel
+    internal class TransferMoneyViewModel : BaseViewModel, ILoaderOwner
     {
+        #region Fields
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ObservableCollection<Account> _accounts;
+        private Account _selectedAccount;
+        private string _recipientCard;
+        private string _amount = "0";
+
+        private Visibility _loaderVisibility = Visibility.Hidden;
+        private bool _isControlEnabled = true;
+
+        #region Commands
+
+        private ICommand _backCommand;
+        private ICommand _sendCommand;
+        #endregion
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+
+        public ObservableCollection<Account> Accounts
+        {
+            get { return _accounts; }
+            set
+            {
+                _accounts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Account SelectedAccount
+        {
+            get { return _selectedAccount; }
+            set
+            {                   //TODO clear all digits of account id except few of them, using one more method
+                                //TODO make cases by type of account, which info to show
+                _selectedAccount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string RecipientCard
+        {
+            get { return _recipientCard; }
+            set
+            {
+                _recipientCard = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string Amount
+        {
+            get { return _amount; }
+            set
+            {
+                _amount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Visibility LoaderVisibility
+        {
+            get { return _loaderVisibility; }
+            set
+            {
+                _loaderVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsControlEnabled
+        {
+            get { return _isControlEnabled; }
+            set
+            {
+                _isControlEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #region Commands
+
+        public ICommand BackCommand
+        {
+            get
+            {
+                return _backCommand ?? (_backCommand =
+                           new RelayCommand<object>(BackImplementation));
+            }
+        }
+
+        public ICommand SendCommand
+        {
+            get
+            {
+                return _sendCommand ?? (_sendCommand =
+                           new RelayCommand<object>(SendImplementation, CanSendExecute));
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+
+        private void BackImplementation(object o)
+        {
+            Amount = "0";
+            RecipientCard = "";
+            SelectedAccount = Accounts?[0];
+            NavigationManager.Instance.Navigate(ViewType.Actions);
+        }
+
+        private bool CanSendExecute(object obj)
+        {
+            return !String.IsNullOrWhiteSpace(_amount) && !String.Equals("0", _amount) &&
+                   !String.IsNullOrWhiteSpace(_recipientCard);
+        }
+
+        private void SendImplementation(object o) //TODO DO YOU REALLY WANT TO SEND????MB INSERT PASSWORD OF CARD INSERTED TO ATM
+        {
+            MessageBox.Show($"SenderId: {SelectedAccount.Id}\nRecipientCard: {RecipientCard}\nAmount: {Amount}");
+        }
+
+        public async void Initialize()
+        {
+            LoaderManager.Instance.ShowLoader();
+            List<Account> accs;
+            var result = await Task.Run(() =>
+            {
+                try
+                {
+                    accs = ClientManager.Instance.GetAccountsByPassport(StationManager.CurrentUser.Passport);
+                    //currentUser = await ClientManager.GetUserByCredentialsAsync(CardNumber, Pin);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Failed to get info about accounts.\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+
+                if (accs != null)
+                {
+                    Accounts = new ObservableCollection<Account>(accs);
+                    SelectedAccount = Accounts?[0];
+                }
+                return true;
+            });
+                LoaderManager.Instance.HideLoader();
+                if (!result)
+                    NavigationManager.Instance.Navigate(ViewType.Actions);
+        }
+        
+
+        //TEST
+        public TransferMoneyViewModel()
+        {
+            Initialize();
+            //Accounts = ClientManager.GetAccountsByPassportAsync(StationManager.CurrentUser.Passport);
+            //this._accounts = new ObservableCollection<Account>()
+            //{
+            //    new Account(1,0,3m,DateTime.Now,0,"ab",""),
+            //    new Account(2,0,3m,DateTime.Now,0,"bc",""),
+            //    new Account(3,0,3m,DateTime.Now,0,"cd","")
+            //};
+            //SelectedAccount = Accounts?[0];
+        }
     }
 }

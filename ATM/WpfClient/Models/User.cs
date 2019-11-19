@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace WpfClient.Models
 {
-    public class User : IEntity
+    public class User
     {
         public string Passport { get; set; }
 
-        //public string FullName => $"{FirstName} {LastName} {Patronymic}";
+        public string FullName { get; set; }
 
         public string LastName { get; set; }
 
@@ -32,9 +32,12 @@ namespace WpfClient.Models
         public string HouseNum { get; set; }
 
         public string ApartmentNum { get; set; }
-        
-        public ICollection<Account> Accounts { get; set; }
 
         public string Notes { get; set; }
+        
+        public override string ToString()
+        {
+            return $"User: {FullName}";
+        }
     }
 }

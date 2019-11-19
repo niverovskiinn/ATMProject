@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WpfClient.Models;
@@ -72,33 +73,33 @@ namespace WpfClient.ViewModels
         private async void SignInImplementation(object obj)
         {
             LoaderManager.Instance.ShowLoader();
-            User currentUser = null;
-            bool result = false;
-            try
+            User currentUser;
+            var result = await Task.Run(() =>
             {
-                currentUser = await ClientManager.GetUserByCredentialsAsync(CardNumber, Pin);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Sign in failed. Reason:{Environment.NewLine}{e.Message}");
-                Pin = "";
-            }
-
-            if (currentUser != null)
-            {
-                StationManager.CurrentUser = currentUser;
-                result = true;
-            }
-
+                try
+                {
+                    currentUser = ClientManager.Instance.GetUserByCredentials(CardNumber, Pin);
+                    //currentUser = await ClientManager.GetUserByCredentialsAsync(CardNumber, Pin);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Sign in failed. Reason:{Environment.NewLine}{e.Message}");
+                    Pin = "";
+                    return false;
+                }
+                
+                if (currentUser != null)
+                {
+                    StationManager.CurrentUser = currentUser;
+                    ///////////TODO remove
+                    MessageBox.Show($"{StationManager.CurrentUser}");
+                    ///////////
+                }
+                return true;
+            });
             LoaderManager.Instance.HideLoader();
             if (result)
-                NavigationManager.Instance.Navigate(ViewType.Actions);
-
-
-            ////////////////////
-            NavigationManager.Instance.Navigate(ViewType.ShowAmount);
-            /// ///////////////
-            
+                NavigationManager.Instance.Navigate(ViewType.Actions);            
         }
 
     }
