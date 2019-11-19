@@ -39,7 +39,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"number\" & \"pin_code\"");
+                throw new Exception("Incorrect \"number\" & \"pincode\"");
             }
             
         }
