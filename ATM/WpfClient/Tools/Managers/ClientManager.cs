@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using WpfClient.Models;
 
 
@@ -59,10 +60,14 @@ namespace WpfClient.Tools.Managers
 
             var response = _client.PostAsJsonAsync(uri, new { passport = passN }).Result;
             response.EnsureSuccessStatusCode();
+
+            string responseBody = response.Content.ReadAsStringAsync().Result;
+
             //if (!response.IsSuccessStatusCode)
             //    throw new InvalidOperationException(response.Content.ToString());
 
-            return response.Content.ReadAsAsync<List<Account>>().Result;
+            return
+                JsonConvert.DeserializeObject<List<Account>>(responseBody); //response.Content.ReadAsAsync<List<Account>>().Result;
         }
 
         internal bool SendMoneyToCard(int accId, string recipientCard, decimal am, string not)
