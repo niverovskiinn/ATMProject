@@ -71,5 +71,22 @@ namespace Engine.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        
+        // POST api/cards/froze
+        // froze account 
+        // need "number" card
+        [HttpPost("froze")]
+        public async Task<ActionResult> PostSetAccFrozen([FromBody] dynamic data)
+        {
+            try
+            {
+                await _cardsService.SetAccFrozen(data);
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

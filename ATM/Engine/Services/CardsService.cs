@@ -8,6 +8,7 @@ using Engine.DataAccess.UnitOfWork;
 using Engine.Services.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.Enum;
 
 namespace Engine.Services
 {
@@ -78,6 +79,22 @@ namespace Engine.Services
             }
         }
 
-        
+
+        public async Task SetAccFrozen(dynamic data)
+        {
+            try
+            {
+                string number = data["number"];
+                var card = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == number);
+                var account = await _unitOfWork.Repository<Account>().GetAsync(a => a.Id == card.AccountId);
+                account.StatusId = (int) AccountStatusEnum.Frozen;
+                _unitOfWork.Repository<Account>().Update(account);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("Incorrect \"id\"");
+            }
+        }
     }
 }

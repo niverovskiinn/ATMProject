@@ -56,7 +56,7 @@ namespace Engine.Controllers
 
         // POST api/accounts/froze
         // froze account 
-        // need "passport" user
+        // need "id" account
         [HttpPost("froze")]
         public async Task<ActionResult> PostSetAccFrozen([FromBody] dynamic data)
         {
