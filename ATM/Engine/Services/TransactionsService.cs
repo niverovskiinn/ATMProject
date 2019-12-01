@@ -72,6 +72,8 @@ namespace Engine.Services
                 amount = (AccountTypeEnum) account.TypeId == AccountTypeEnum.Credit ? amount * 1.15m : amount;
                 if (account.AmountMoney < amount)
                     return "NOT ENOUGH MONEY";
+                if (account.StatusId  == (int) AccountStatusEnum.Closed || account.StatusId  == (int) AccountStatusEnum.Frozen)
+                    return "Account not active";
                 _unitOfWork.Repository<Transaction>().Add(new Transaction
                 {
                     DateTime = DateTime.Now,
@@ -105,11 +107,13 @@ namespace Engine.Services
                 amount = (AccountTypeEnum) from.TypeId == AccountTypeEnum.Credit ? amount * 1.1m : amount;
                 if (from.AmountMoney < amount)
                     return "NOT ENOUGH MONEY";
-
+                if (from.StatusId  == (int) AccountStatusEnum.Closed || from.StatusId  == (int) AccountStatusEnum.Frozen)
+                    return "Account not active";
                 var cardTo = await _unitOfWork.Repository<Card>().GetAsync(c => c.Number == cardNumTo);
                 var to = await _unitOfWork.Repository<Account>()
                     .GetAsync(account => account.Id == cardTo.AccountId);
-
+                if (to.StatusId  == (int) AccountStatusEnum.Closed || to.StatusId  == (int) AccountStatusEnum.Frozen)
+                    return "Account not active";
                 _unitOfWork.Repository<Transaction>().Add(new Transaction
                 {
                     DateTime = DateTime.Now,
@@ -138,6 +142,8 @@ namespace Engine.Services
                 decimal amount = data["amount"];
                 int id = data["account"];
                 var acc = await _unitOfWork.Repository<Account>().GetAsync(ac => ac.Id == id);
+                if (acc.StatusId  == (int) AccountStatusEnum.Closed || acc.StatusId  == (int) AccountStatusEnum.Frozen)
+                    return "Account not active";
                 _unitOfWork.Repository<Transaction>().Add(new Transaction
                 {
                     DateTime = DateTime.Now,
