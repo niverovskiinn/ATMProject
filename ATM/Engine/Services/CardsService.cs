@@ -93,7 +93,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"id\"");
+                throw new Exception("Incorrect \"number\"");
             }
         }
     }
