@@ -12,7 +12,7 @@ namespace WpfClient.Tools.Managers
         private static readonly object Locker = new object();
         private static NavigationManager _instance;
 
-        private INavigationModel _navigationModel;
+        internal INavigationModel _navigationModel;
 
         internal static NavigationManager Instance
         {
@@ -39,6 +39,7 @@ namespace WpfClient.Tools.Managers
 
         internal void Navigate(ViewType viewType)
         {
+            //_navigationModel.
             _navigationModel.Navigate(viewType);
         }
 

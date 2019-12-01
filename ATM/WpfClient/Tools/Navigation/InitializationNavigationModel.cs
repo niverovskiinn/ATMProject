@@ -42,5 +42,10 @@ namespace WpfClient.Tools.Navigation
                     throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);
             }
         }
+
+        //protected override void ReInitializeView(ViewType viewType)
+        //{
+        //    ViewsDictionary.Values.GetEnumerator().
+        //}
     }
 }

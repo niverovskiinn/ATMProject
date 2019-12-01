@@ -82,6 +82,18 @@ namespace WpfClient.Tools.Managers
             return true;
         }
 
+        internal bool FrozeAccountById(int accId)
+        {
+            string uri = "api/accounts/froze";
+
+            var response = _client.PostAsJsonAsync(uri, new { id = accId}).Result;
+            response.EnsureSuccessStatusCode();
+            //if (!response.IsSuccessStatusCode)
+            //    throw new InvalidOperationException(response.Content.ToString());
+
+            return true;
+        }
+
         internal void Initialize()
         {
             _client = new HttpClient();

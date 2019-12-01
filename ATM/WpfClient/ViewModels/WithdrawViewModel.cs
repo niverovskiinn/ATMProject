@@ -109,7 +109,7 @@ namespace WpfClient.ViewModels
             get
             {
                 return _enterCommand ?? (_enterCommand =
-                           new RelayCommand<object>(DepositCashImplementation, CanEnterExecute));
+                           new RelayCommand<object>(WithdrawCashImplementation, CanEnterExecute));
             }
         }
 
@@ -128,21 +128,38 @@ namespace WpfClient.ViewModels
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
-        private void DepositCashImplementation(object o)
+        private void WithdrawCashImplementation(object o)
         {
             //throw new NotImplementedException();
-            MessageBox.Show("Amount to deposit: " + WithdrawAmount);
+            MessageBox.Show($"Successful! Amount to withdraw: " + WithdrawAmount,
+                "Success!",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+            MessageBox.Show($"Transfer is unsuccessful.\nNot enough money on balance!",
+                "Denied",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
 
         //TEST
         public WithdrawViewModel()
         {
-            this._accountsToWithdraw = new ObservableCollection<Account>()
+            try
             {
-                new Account(1,0,3m,DateTime.Now,0,"ab", ""),
-                new Account(2,0,3m,DateTime.Now,0,"bc", ""),
-                new Account(3,0,3m,DateTime.Now,0,"cd","")
-            };
+                StationManager.ReinitializeAccounts();
+                AccountsToWithdraw = new ObservableCollection<Account>(StationManager.Accounts);
+            }
+            catch (Exception e)
+            {
+                this._accountsToWithdraw = new ObservableCollection<Account>()
+                {
+                    new Account(1,0,3m,DateTime.Now,0,"ab", ""),
+                    new Account(2,0,3m,DateTime.Now,0,"bc", ""),
+                    new Account(3,0,3m,DateTime.Now,0,"cd","")
+                };
+            }
             this.SelectedAccountToWithdraw = AccountsToWithdraw[0];
         }
     }

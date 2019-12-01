@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -175,7 +174,11 @@ namespace WpfClient.ViewModels
             LoaderManager.Instance.HideLoader();
             if (result)
             {
-                MessageBox.Show("Transaction successful!");
+                MessageBox.Show($"Transfer is unsuccessful.\nNot enough money on balance!",
+                    "Denied",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 NavigationManager.Instance.Navigate(ViewType.Actions);
             }
         }
@@ -193,7 +196,8 @@ namespace WpfClient.ViewModels
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Failed to get info about accounts.\nReason:{Environment.NewLine}{e.Message}");
+                    MessageBox.Show($"Failed to get info about accounts." +
+                                    $"\nReason:{Environment.NewLine}{e.Message}");
                     return false;
                 }
 
@@ -206,7 +210,9 @@ namespace WpfClient.ViewModels
             });
                 LoaderManager.Instance.HideLoader();
                 if (!result)
+                {
                     NavigationManager.Instance.Navigate(ViewType.Actions);
+                }
         }
         
 
