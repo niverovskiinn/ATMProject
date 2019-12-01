@@ -175,7 +175,11 @@ namespace WpfClient.ViewModels
             LoaderManager.Instance.HideLoader();
             if (result)
             {
-                MessageBox.Show("Transaction successful!");
+                MessageBox.Show($"Transfer is unsuccessful.\nNot enough money on balance!",
+                    "Denied",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 NavigationManager.Instance.Navigate(ViewType.Actions);
             }
         }

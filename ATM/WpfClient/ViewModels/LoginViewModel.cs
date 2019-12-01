@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using WpfClient.Models;
 using WpfClient.Tools;
 using WpfClient.Tools.Managers;
 using WpfClient.Tools.Navigation;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WpfClient.ViewModels
 {
@@ -73,6 +75,7 @@ namespace WpfClient.ViewModels
         private async void SignInImplementation(object obj)
         {
             LoaderManager.Instance.ShowLoader();
+
             User currentUser;
             var result = await Task.Run(() =>
             {
@@ -87,17 +90,23 @@ namespace WpfClient.ViewModels
                     Pin = "";
                     return false;
                 }
-                
+
                 if (currentUser != null)
                 {
                     StationManager.CurrentUser = currentUser;
                     ///////////TODO remove
-                    MessageBox.Show($"{StationManager.CurrentUser}");
+                    MessageBox.Show($"Sign in successful.\nCurrent user: {StationManager.CurrentUser}",
+                    "Login successful",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                        );
                     ///////////
                 }
                 return true;
             });
             LoaderManager.Instance.HideLoader();
+
+            
             if (result)
                 NavigationManager.Instance.Navigate(ViewType.Actions);            
         }

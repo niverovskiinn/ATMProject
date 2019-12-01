@@ -34,7 +34,9 @@ namespace WpfClient.Tools.Navigation
             ContentOwner.ContentControl.Content = ViewsDictionary[viewType];
         }
 
+
         protected abstract void InitializeView(ViewType viewType);
+        //protected abstract void ReInitializeView(ViewType viewType);
 
     }
 }
