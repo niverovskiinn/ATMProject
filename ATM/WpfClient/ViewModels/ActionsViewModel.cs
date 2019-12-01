@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using WpfClient.Models;
 using WpfClient.Tools;
 using WpfClient.Tools.Managers;
 using WpfClient.Tools.Navigation;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WpfClient.ViewModels
 {
@@ -153,7 +147,14 @@ namespace WpfClient.ViewModels
 
         private void LogOutImplementation(object o)
         {
-            throw new NotImplementedException();
+            MessageBoxResult result = MessageBox.Show("Do you really want to log out?", "Log out?",
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes)
+            { 
+                StationManager.CurrentUser = null;
+                StationManager.Accounts = null;
+                NavigationManager.Instance.Navigate(ViewType.Login);
+            }
         }
 
         public ActionsViewModel()

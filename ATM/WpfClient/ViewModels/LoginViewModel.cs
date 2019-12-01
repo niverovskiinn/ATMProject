@@ -82,7 +82,6 @@ namespace WpfClient.ViewModels
                 try
                 {
                     currentUser = ClientManager.Instance.GetUserByCredentials(CardNumber, Pin);
-                    //currentUser = await ClientManager.GetUserByCredentialsAsync(CardNumber, Pin);
                 }
                 catch (Exception e)
                 {
@@ -104,11 +103,14 @@ namespace WpfClient.ViewModels
                 }
                 return true;
             });
+            Pin = "";
             LoaderManager.Instance.HideLoader();
-
             
             if (result)
-                NavigationManager.Instance.Navigate(ViewType.Actions);            
+            {
+                CardNumber = "";
+                NavigationManager.Instance.Navigate(ViewType.Actions);
+            }
         }
 
     }
