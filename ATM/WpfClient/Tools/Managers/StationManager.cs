@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using WpfClient.Models;
 
@@ -12,20 +14,38 @@ namespace WpfClient.Tools.Managers
 
         internal static User CurrentUser { get; set; }
 
-        internal static List<Account> Accounts { get; set; }
+        internal static ObservableCollection<Account> Accounts { get; set; }
 
-        internal static void ReinitializeAccounts()
+        internal static async Task ReinitializeAccounts()
         {
-            try
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
             {
-                Accounts = ClientManager.Instance.GetAccountsByPassport(CurrentUser.Passport);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Couldn't get accounts info properly." +
-                                $"\nReason: {e.Message}");
-                throw;
-            }
+                List<Account> tmp;
+                try
+                {
+                    tmp = ClientManager.Instance.GetAccountsByPassport(CurrentUser.Passport);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Failed to get info about accounts." +
+                                    $"\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+
+                if (tmp != null)
+                {
+                    Accounts.Clear();
+                    foreach (var acc in tmp)
+                    {
+                        Accounts.Add(acc);
+                    }
+                    //Accounts = new ObservableCollection<Account>(tmp);
+                }
+
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
         }
 
         internal static void CloseApp()

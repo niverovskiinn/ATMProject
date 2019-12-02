@@ -172,49 +172,54 @@ namespace WpfClient.ViewModels
                 return true;
             });
             LoaderManager.Instance.HideLoader();
-            if (result)
+            if (!result)
             {
                 MessageBox.Show($"Transfer is unsuccessful.\nNot enough money on balance!",
                     "Denied",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                 );
-                NavigationManager.Instance.Navigate(ViewType.Actions);
             }
+            NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
         public async void Initialize()
         {
             LoaderManager.Instance.ShowLoader();
-            List<Account> accs;
-            var result = await Task.Run(() =>
+            var result = await Task.Run(async () =>
             {
-                try
+               try
                 {
-                    accs = ClientManager.Instance.GetAccountsByPassport(StationManager.CurrentUser.Passport);
-                    //currentUser = await ClientManager.GetUserByCredentialsAsync(CardNumber, Pin);
+                    //StationManager.ReinitializeAccounts();
+                    //Accounts = StationManager.Accounts;
+                    await AccountsManager.Instance.ReInitialize();
+                    Accounts = AccountsManager.Instance.Accs;
+                    if (Accounts != null)
+                    {
+                        SelectedAccount = Accounts[0];
+                    }
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show($"Failed to get info about accounts." +
-                                    $"\nReason:{Environment.NewLine}{e.Message}");
+                                  $"\nReason:{Environment.NewLine}{e.Message}");
                     return false;
                 }
-
-                if (accs != null)
-                {
-                    Accounts = new ObservableCollection<Account>(accs);
-                    SelectedAccount = Accounts?[0];
-                }
-                return true;
+                 
+                
+            
+               return true;
             });
-                LoaderManager.Instance.HideLoader();
-                if (!result)
-                {
-                    NavigationManager.Instance.Navigate(ViewType.Actions);
-                }
+            LoaderManager.Instance.HideLoader();
+
+            if (!result)
+            {
+                MessageBox.Show($"Failed to get info about accounts");
+                NavigationManager.Instance.Navigate(ViewType.Actions);
+
+            }
         }
-        
+
 
         //TEST
         public TransferMoneyViewModel()

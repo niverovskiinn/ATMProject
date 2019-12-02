@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfClient.Tools.Navigation;
+﻿using WpfClient.Tools.Navigation;
 
 namespace WpfClient.Tools.Managers
 {
@@ -39,7 +34,6 @@ namespace WpfClient.Tools.Managers
 
         internal void Navigate(ViewType viewType)
         {
-            //_navigationModel.
             _navigationModel.Navigate(viewType);
         }
 

@@ -81,6 +81,7 @@
       <DependentUpon>LabelAndTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\ILoaderOwner.cs" />
+    <Compile Include="Tools\Managers\AccountsManager.cs" />
     <Compile Include="Tools\Managers\ClientManager.cs" />
     <Compile Include="Tools\Managers\LoaderManager.cs" />
     <Compile Include="Tools\Managers\NavigationManager.cs" />

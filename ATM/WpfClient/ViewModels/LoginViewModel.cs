@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using WpfClient.Models;
 using WpfClient.Tools;
@@ -93,6 +93,8 @@ namespace WpfClient.ViewModels
                 if (currentUser != null)
                 {
                     StationManager.CurrentUser = currentUser;
+                    //StationManager.Accounts = new ObservableCollection<Account>();
+                    AccountsManager.Instance.Initialize();
                     ///////////TODO remove
                     MessageBox.Show($"Sign in successful.\nCurrent user: {StationManager.CurrentUser}",
                     "Login successful",
