@@ -32,7 +32,7 @@ namespace Engine.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(215, ex.Message);
             }
         }
         
