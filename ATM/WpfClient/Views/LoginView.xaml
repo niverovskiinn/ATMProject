@@ -8,17 +8,16 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Caption="Enter card number" Margin="10" Grid.RowSpan="2"></controls:LabelAndTextControl>
-        <controls:LabelAndPasswordControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Password="{Binding Pin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Caption="Enter card number" Margin="10" Grid.RowSpan="2"></controls:LabelAndTextControl>
+        <controls:LabelAndPasswordControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Password="{Binding Pin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                            Caption="Enter pin code" Margin="10" Grid.RowSpan="2"></controls:LabelAndPasswordControl>
         <Button Name="ClearButton" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" 
                 VerticalAlignment="Center" Margin="25 5" Content="Clear" Command="{Binding ClearCommand}"></Button>

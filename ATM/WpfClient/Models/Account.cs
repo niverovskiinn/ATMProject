@@ -53,6 +53,11 @@ namespace WpfClient.Models
             OwnerPassport = ownerPassport;
             Notes = notes;
         }
+
+        public override string ToString()
+        {
+            return Id.ToString();
+        }
     }
 
 

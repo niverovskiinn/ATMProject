@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Label Name="Label" Grid.Row="0" FontWeight="Bold" FontSize="16" Margin="-2,-10,0,0" HorizontalContentAlignment="Center"  
                Content="{Binding Caption, RelativeSource={RelativeSource FindAncestor, AncestorType=local:LabelAndTextControl}, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Name="TextBox" Grid.Row ="1" FontSize="14" FontWeight="Bold" 
+        <TextBox Name="TextBox" Grid.Row ="1" FontSize="14" FontWeight="Bold" MaxLength="16" 
                  Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=local:LabelAndTextControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

@@ -69,6 +69,25 @@ namespace WpfClient.Tools.Managers
                 JsonConvert.DeserializeObject<List<Account>>(responseBody);
         }
 
+        internal List<Transaction> GetTransactionsPeriod(int accId, DateTime f, DateTime t)
+        {
+            string uri = "api/transactions/period";
+
+            DateTime f1 = DateTime.ParseExact(f.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", null);
+            DateTime t1 = DateTime.ParseExact(t.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", null);
+
+            var response = _client.PostAsJsonAsync(uri, new { account = accId, from = f1, to = t1 }).Result;
+
+            if ((int)response.StatusCode == 215)
+                throw new Exception(response.Content.ReadAsStringAsync().Result);
+            //response.EnsureSuccessStatusCode();
+
+            string responseBody = response.Content.ReadAsStringAsync().Result;
+
+            return
+                JsonConvert.DeserializeObject<List<Transaction>>(responseBody);
+        }
+
         internal bool SendMoneyToCard(int accId, string recipientCard, decimal am, string not)
         {
             string uri = "api/transactions/send";
@@ -86,6 +105,18 @@ namespace WpfClient.Tools.Managers
             string uri = "api/transactions/deposit";
 
             var response = _client.PostAsJsonAsync(uri, new { account = accId, amount = am}).Result;
+            //response.EnsureSuccessStatusCode();
+            if ((int)response.StatusCode == 215)
+                throw new Exception(response.Content.ReadAsStringAsync().Result);
+
+            return true;
+        }
+
+        internal bool WithdrawFromAccount(int accId, decimal am)
+        {
+            string uri = "api/transactions/withdraw";
+
+            var response = _client.PostAsJsonAsync(uri, new { account = accId, amount = am , notes = ""}).Result;
             //response.EnsureSuccessStatusCode();
             if ((int)response.StatusCode == 215)
                 throw new Exception(response.Content.ReadAsStringAsync().Result);

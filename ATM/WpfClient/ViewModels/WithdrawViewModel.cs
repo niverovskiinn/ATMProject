@@ -20,8 +20,8 @@ namespace WpfClient.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        private ObservableCollection<Account> _accountsToWithdraw;
-        private Account _selectedAccountToWithdraw;
+        private ObservableCollection<Account> _accounts;
+        private Account _selectedAccount;
         private string _withdrawAmount = "";
 
         private Visibility _loaderVisibility = Visibility.Hidden;
@@ -41,23 +41,23 @@ namespace WpfClient.ViewModels
         /// 
         /// </summary>
 
-        public ObservableCollection<Account> AccountsToWithdraw
+        public ObservableCollection<Account> Accounts
         {
-            get { return _accountsToWithdraw; }
+            get { return _accounts; }
             set
             {
-                _accountsToWithdraw = value;
+                _accounts = value;
                 OnPropertyChanged();
             }
         }
 
-        public Account SelectedAccountToWithdraw
+        public Account SelectedAccount
         {
-            get { return _selectedAccountToWithdraw; }
+            get { return _selectedAccount; }
             set
             {                   //TODO clear all digits of account id except few of them, using one more method
                                 //TODO make cases by type of account, COMMISION
-                _selectedAccountToWithdraw = value;
+                _selectedAccount = value;
                 OnPropertyChanged();
             }
         }
@@ -98,7 +98,6 @@ namespace WpfClient.ViewModels
         {
             get
             {
-                WithdrawAmount = "0";
                 return _backCommand ?? (_backCommand =
                            new RelayCommand<object>(BackImplementation));
             }
@@ -119,52 +118,82 @@ namespace WpfClient.ViewModels
 
         private bool CanEnterExecute(object obj)
         {
-            return !String.IsNullOrWhiteSpace(_withdrawAmount) && !String.Equals("0", _withdrawAmount);
+            return !String.IsNullOrWhiteSpace(_withdrawAmount) && !String.Equals("0", _withdrawAmount)
+                && (SelectedAccount != null) && (SelectedAccount.StatusId == 1);
         }
 
 
         private void BackImplementation(object o)
         {
+            WithdrawAmount = "0";
+            SelectedAccount = null;
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
-        private void WithdrawCashImplementation(object o)
+        private async void WithdrawCashImplementation(object o)
         {
-            //throw new NotImplementedException();
-            MessageBox.Show($"Successful! Amount to withdraw: " + WithdrawAmount,
-                "Success!",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
-            MessageBox.Show($"Transfer is unsuccessful.\nNot enough money on balance!",
-                "Denied",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                bool res = false;
+                try
+                {
+                    res = ClientManager.Instance.WithdrawFromAccount(SelectedAccount.Id, Convert.ToDecimal(WithdrawAmount.Trim()));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Operation failed.\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+            if (result)
+            {
+                MessageBox.Show("Transaction has been done successfully!");
+            }
+
+            WithdrawAmount = "0";
+            NavigationManager.Instance.Navigate(ViewType.Actions);
+
         }
 
-        //TEST
+
+        private async void Initialize()
+        {
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(async () =>
+            {
+                try
+                {
+                    Accounts = AccountsManager.Instance.Accs;
+                    if (Accounts != null)
+                    {
+                        SelectedAccount = Accounts[0];
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Failed to get info about accounts." +
+                                    $"\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+
+            if (!result)
+            {
+                MessageBox.Show($"Failed to get info about accounts");
+                NavigationManager.Instance.Navigate(ViewType.Actions);
+
+            }
+        }
+
         public WithdrawViewModel()
         {
-            try
-            {
-                //StationManager.ReinitializeAccounts();
-                AccountsToWithdraw = new ObservableCollection<Account>(StationManager.Accounts);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Failed to get info about accounts." +
-                                $"\nReason:{Environment.NewLine}{e.Message}");
-                //return false;
-
-                this._accountsToWithdraw = new ObservableCollection<Account>()
-                {
-                    new Account(1,0,3m,DateTime.Now,0,"ab", ""),
-                    new Account(2,0,3m,DateTime.Now,0,"bc", ""),
-                    new Account(3,0,3m,DateTime.Now,0,"cd","")
-                };
-            }
-            this.SelectedAccountToWithdraw = AccountsToWithdraw[0];
+            WithdrawAmount = "0";
+            Initialize();
         }
     }
 }
