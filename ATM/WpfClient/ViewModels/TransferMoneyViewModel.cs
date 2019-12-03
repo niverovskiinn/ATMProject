@@ -180,10 +180,12 @@ namespace WpfClient.ViewModels
                     MessageBoxImage.Error
                 );
             }
+
+            Amount = "0";
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
-        public async void Initialize()
+        private async void Initialize()
         {
             LoaderManager.Instance.ShowLoader();
             var result = await Task.Run(async () =>

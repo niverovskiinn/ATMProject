@@ -20,9 +20,9 @@ namespace WpfClient.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        private ObservableCollection<Account> _accountsToDeposit;
-        private Account _selectedAccountToDeposit;
-        private string _depositAmount = "";
+        private ObservableCollection<Account> _accounts;
+        private Account _selectedAccount;
+        private string _depositAmount;
 
         private Visibility _loaderVisibility = Visibility.Hidden;
         private bool _isControlEnabled = true;
@@ -41,23 +41,23 @@ namespace WpfClient.ViewModels
         /// 
         /// </summary>
 
-        public ObservableCollection<Account> AccountsToDeposit
+        public ObservableCollection<Account> Accounts
         {
-            get { return _accountsToDeposit; }
+            get { return _accounts; }
             set
             {
-                _accountsToDeposit = value;
+                _accounts = value;
                 OnPropertyChanged();
             }
         }
 
-        public Account SelectedAccountToDeposit
+        public Account SelectedAccount
         {
-            get { return _selectedAccountToDeposit; }
+            get { return _selectedAccount; }
             set
             {                   //TODO clear all digits of account id except few of them, using one more method
                                 //TODO make cases by type of account, COMMISION
-                _selectedAccountToDeposit = value;
+                _selectedAccount = value;
                 OnPropertyChanged();
             }
         }
@@ -98,7 +98,6 @@ namespace WpfClient.ViewModels
         {
             get
             {
-                DepositAmount = "0";
                 return _backCommand ?? (_backCommand =
                            new RelayCommand<object>(BackImplementation));
             }
@@ -109,7 +108,7 @@ namespace WpfClient.ViewModels
             get
             {
                 return _enterCommand ?? (_enterCommand =
-                           new RelayCommand<object>(DepositCashImplementation,CanEnterExecute));
+                           new RelayCommand<object>(DepositCashImplementation,CanDepositExecute));
             }
         }
 
@@ -117,33 +116,94 @@ namespace WpfClient.ViewModels
 
         #endregion
 
-        private bool CanEnterExecute(object obj)
+        private bool CanDepositExecute(object obj)
         {
-            return !String.IsNullOrWhiteSpace(_depositAmount) && !String.Equals("0",_depositAmount);
+            return !String.IsNullOrWhiteSpace(_depositAmount) && !String.Equals("0",_depositAmount)
+                && (SelectedAccount != null) && (SelectedAccount.StatusId == 1);
         }
 
 
         private void BackImplementation(object o)
         {
+            DepositAmount = "0";
+            SelectedAccount = null;
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
-        private void DepositCashImplementation(object o)
+        private async void DepositCashImplementation(object o)
         {
-            //throw new NotImplementedException();
-            MessageBox.Show("Amount to deposit: "+ DepositAmount);
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                bool res = false;
+                try
+                {
+                    res = ClientManager.Instance.DepositToAccount(SelectedAccount.Id, Convert.ToDecimal(DepositAmount.Trim()));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Operation failed.\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+            if (!result)
+            {
+                MessageBox.Show($"Transfer is unsuccessful.",
+                    "Denied",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+            else
+            {
+                MessageBox.Show("Transaction has been done successfully!");
+            }
+
+            DepositAmount = "0";
+            NavigationManager.Instance.Navigate(ViewType.Actions);
+            
+        }
+
+
+        private async void Initialize()
+        {
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(async () =>
+            {
+                try
+                {
+                    //await AccountsManager.Instance.ReInitialize();
+                    Accounts = AccountsManager.Instance.Accs;
+                    if (Accounts != null)
+                    {
+                        SelectedAccount = Accounts[0];
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Failed to get info about accounts." +
+                                    $"\nReason:{Environment.NewLine}{e.Message}");
+                    return false;
+                }
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+
+            if (!result)
+            {
+                MessageBox.Show($"Failed to get info about accounts");
+                NavigationManager.Instance.Navigate(ViewType.Actions);
+
+            }
         }
 
         //TEST
         public DepositViewModel()
         {
-            this._accountsToDeposit = new ObservableCollection<Account>()
-            {
-                new Account(1,0,3m,DateTime.Now,0,"ab", ""),
-                new Account(2,0,3m,DateTime.Now,0,"bc", ""),
-                new Account(3,0,3m,DateTime.Now,0,"cd","")
-            };
-            this.SelectedAccountToDeposit = AccountsToDeposit[0];
+            DepositAmount = "0";
+            Initialize();
         }
     }
 }
