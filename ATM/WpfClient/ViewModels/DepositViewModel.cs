@@ -66,8 +66,7 @@ namespace WpfClient.ViewModels
         {
             get { return _selectedAccount; }
             set
-            {                   //TODO clear all digits of account id except few of them, using one more method
-                                //TODO make cases by type of account, COMMISION
+            {                  
                 _selectedAccount = value;
                 if (_selectedAccount != null)
                 {

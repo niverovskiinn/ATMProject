@@ -8,9 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="#F1EaEa">
         <Grid.RowDefinitions>
+            <RowDefinition Height ="0.5*"/>
             <RowDefinition Height ="2*"/>
-            <RowDefinition Height ="2*"/>
-            <RowDefinition Height ="2*"/>
+            <RowDefinition Height ="0.7*"/>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -18,10 +18,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Foreground="#381C40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="16" Margin="70,10,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
-               Content="Сhoose account"/>
-        <ComboBox Foreground="#381C40" Grid.Row="1" MinWidth="175" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Stretch"  IsEditable="False" FontSize="16" Margin="40,16,40,16" VerticalAlignment="Stretch" 
+               Content="Сhoose account to freeze:"/>
+        <ComboBox Foreground="#381C40" Grid.Row="0" MinWidth="175" Grid.Column="1" HorizontalAlignment="Stretch"  IsEditable="False" FontSize="16" Margin="40,16,40,16" VerticalAlignment="Stretch" 
                   ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                   SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+        <Label Foreground="#381C40" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="45" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AccountInfo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></Label>
         <Button Foreground="#381C40" Background="#CF92E2" Name="BackButton" Grid.Row="2" Grid.Column="0" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
         <Button Foreground="#381C40" Background="#B87CCB" Name="SendButton" Grid.Row="2" Grid.Column="1" Margin="40 20" FontSize="16" FontWeight="Bold" Content="Send" Command="{Binding SubmitCommand}"></Button>            
     </Grid>
