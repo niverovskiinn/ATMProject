@@ -20,7 +20,7 @@
         <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding DepositAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Caption="Enter amount of money you want to deposit, UAH" Margin="40, 20, 20,20" MaxWidth="500" Grid.RowSpan="2"></controls:LabelAndTextControl>
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Margin="50,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
                Content="Сhoose account"/>
-        <ComboBox Grid.Row="2" MinWidth="105" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" VerticalAlignment="Center" Margin="60 0 0 0" ItemsSource="{Binding Path=AccountsToDeposit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccountToDeposit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+        <ComboBox Grid.Row="2" MinWidth="105" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" VerticalAlignment="Center" Margin="60 0 0 0" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
         <Button Name="BackButton" Grid.Row="3" Grid.Column="0" Margin="80 0"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
         <Button Name="EnterButton" Grid.Row="3" Grid.Column="1" Margin="80 0" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Content="Enter" Command="{Binding EnterCommand}"></Button>
     </Grid>

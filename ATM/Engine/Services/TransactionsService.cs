@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Engine.DataAccess.UnitOfWork;
@@ -46,8 +47,10 @@ namespace Engine.Services
             {
                 int id = data["account"];
                 var account = await _unitOfWork.Repository<Account>().GetAsync(ac => ac.Id == id);
-                DateTime from = DateTime.ParseExact(data["from"], "dd.MM.yyyy HH:mm:ss", null);
-                DateTime to = DateTime.ParseExact(data["to"], "dd.MM.yyyy HH:mm:ss", null);
+                string f = data["from"];
+                string t = data["to"];
+                DateTime from = DateTime.ParseExact(f, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                DateTime to = DateTime.ParseExact(t, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 var accc = await _unitOfWork.Repository<Account>().GetAsync(acc => acc.Id == account.Id);
                 return await _unitOfWork.Repository<Transaction>().GetListAsync(
                     tran => tran.DateTime > from && tran.DateTime < to && (tran.AccountFromId == accc.Id ||
