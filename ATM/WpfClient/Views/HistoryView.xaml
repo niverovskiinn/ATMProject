@@ -10,8 +10,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.9*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
@@ -20,8 +20,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Foreground="#381C40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Margin="50,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
-               Content="Сhoose account"/>
-        <ComboBox Foreground="#381C40" Grid.Row="1" MinWidth="105" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" VerticalAlignment="Center" Margin="60 0 0 0" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+               Content="Сhoose account to get history:"/>
+        <ComboBox Foreground="#381C40" Grid.Row="1" MinWidth="145" Grid.Column="0" HorizontalAlignment="Center" IsEditable="False" FontSize="16" VerticalAlignment="Center" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+        <Label Foreground="#381C40" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5" FontSize="13" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AccountInfo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></Label>
 
         <Label Foreground="#381C40" Grid.Row="2" Grid.Column="0" Margin="0" FontSize="18" FontWeight="Bold" 
                HorizontalContentAlignment="Center" Content="Choose 'from' date:"></Label>

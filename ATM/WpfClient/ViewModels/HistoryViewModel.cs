@@ -19,6 +19,7 @@ namespace WpfClient.ViewModels
 
         private ObservableCollection<Account> _accounts;
         private Account _selectedAccount;
+        private string _accountInfo;
 
         private ObservableCollection<Transaction> _transactions;
         private DateTime _fromDate;
@@ -46,13 +47,34 @@ namespace WpfClient.ViewModels
             }
         }
 
+
+        public string AccountInfo
+        {
+            get { return _accountInfo; }
+            set
+            {
+                _accountInfo = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Account SelectedAccount
         {
             get { return _selectedAccount; }
             set
-            {                   //TODO clear all digits of account id except few of them, using one more method
-                //TODO make cases by type of account, COMMISION
+            {
                 _selectedAccount = value;
+                if (_selectedAccount != null)
+                {
+                    AccountTypes t = (AccountTypes)SelectedAccount.TypeId;
+                    StatusType ts = (StatusType)SelectedAccount.StatusId;
+
+                    AccountInfo = $"Type: {t}\nRemaining: {SelectedAccount.AmountMoney} UAH\nStatus: {ts}";
+                }
+                else
+                {
+                    AccountInfo = "";
+                }
                 OnPropertyChanged();
             }
         }
