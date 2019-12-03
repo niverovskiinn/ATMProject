@@ -6,8 +6,10 @@
              xmlns:controls="clr-namespace:WpfClient.Tools.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="#F1EaEa">
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
@@ -16,13 +18,13 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Caption="Enter card number" Margin="10" Grid.RowSpan="2"></controls:LabelAndTextControl>
-        <controls:LabelAndPasswordControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Password="{Binding Pin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <controls:LabelAndTextControl Foreground="#381C40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Caption="Enter card number" Margin="10" Grid.RowSpan="2"></controls:LabelAndTextControl>
+        <controls:LabelAndPasswordControl Foreground="#381C40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Password="{Binding Pin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                            Caption="Enter pin code" Margin="10" Grid.RowSpan="2"></controls:LabelAndPasswordControl>
-        <Button Name="ClearButton" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" 
-                VerticalAlignment="Center" Margin="25 5" Content="Clear" Command="{Binding ClearCommand}"></Button>
-        <Button Name="SignInButton" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" 
-                VerticalAlignment="Center" Margin="25 5" Content="Sign in" Command="{Binding SignInCommand}" ></Button>
+        <Button Foreground="#381C40" Background="#CF92E2" Name="ClearButton" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" 
+                VerticalAlignment="Center" Margin="25 5" Content="Clear" Command="{Binding ClearCommand}" FontWeight="Bold" FontSize="14"/>
+        <Button Foreground="#381C40" Background="#B87CCB" Name="SignInButton" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" 
+                VerticalAlignment="Center" Margin="25 5" Content="Sign in" Command="{Binding SignInCommand}" FontWeight="Bold" FontSize="14" ></Button>
     </Grid>
 
 </UserControl>

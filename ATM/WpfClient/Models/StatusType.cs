@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace WpfClient.Models
 {
-    public enum AccountTypes
+    public enum StatusType
     {
-        Deposit, Credit
+        Closed, Active, Frozen
     }
 }

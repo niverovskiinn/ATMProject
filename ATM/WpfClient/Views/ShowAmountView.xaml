@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfClient.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="#F1EaEa">
          <Grid.RowDefinitions>
             <RowDefinition Height ="2*"/>
             <RowDefinition Height ="2*"/>
@@ -17,11 +17,13 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
          </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="16" Margin="20,10,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
+        <Label Foreground="#381C40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="16" Margin="20,10,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
                Content="Сhoose account"/>
-        <ComboBox Grid.Row="1" MinWidth="75" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" Margin="20,30,0,0" VerticalAlignment="Top" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
-        <Label Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="40" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding AmountInfo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></Label>
-        <Button Name="BackButton" Grid.Row="3" Grid.Column="0" Margin="40,22,40,18" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
-        <Button Name="ShowButton" Grid.Row="3" Grid.Column="1" Margin="40,22,40,18" FontSize="16" FontWeight="Bold" Content="Show" Command="{Binding ShowCommand}"></Button>
+        <ComboBox Foreground="#381C40" Grid.Row="1" MinWidth="75" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" Margin="20,30,0,0" VerticalAlignment="Top" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+        <Label Foreground="#381C40" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="40" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding AmountInfo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></Label>
+        <Button Foreground="#381C40" Background="#CF92E2" Name="BackButton" Grid.Row="3" Grid.Column="0" Margin="40,22,40,18" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
+        <Button Foreground="#381C40" Background="#B87CCB" Name="ShowButton" Grid.Row="3" Grid.Column="1" Margin="40,22,40,18" FontSize="16" FontWeight="Bold" Content="Show" Command="{Binding ShowCommand}">
+            
+        </Button>
     </Grid>
 </UserControl>

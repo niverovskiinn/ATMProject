@@ -119,7 +119,7 @@ namespace WpfClient.ViewModels
         private bool CanEnterExecute(object obj)
         {
             return !String.IsNullOrWhiteSpace(_withdrawAmount) && !String.Equals("0", _withdrawAmount)
-                && (SelectedAccount != null) && (SelectedAccount.StatusId == 1);
+                && (SelectedAccount != null) && (SelectedAccount.StatusId == StatusType.Active);
         }
 
 

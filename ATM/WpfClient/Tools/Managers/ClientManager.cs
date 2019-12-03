@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using WpfClient.Models;
 
 
@@ -84,8 +85,12 @@ namespace WpfClient.Tools.Managers
 
             string responseBody = response.Content.ReadAsStringAsync().Result;
 
-            return
-                JsonConvert.DeserializeObject<List<Transaction>>(responseBody);
+            var serializeSettings = new JsonSerializerSettings();
+            serializeSettings.Converters.Add(new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-ddTHH:mm:ss" });
+            var result = JsonConvert.DeserializeObject<List<Transaction>>(responseBody, serializeSettings);
+
+            return result;
+            //JsonConvert.DeserializeObject<List<Transaction>>(responseBody);
         }
 
         internal bool SendMoneyToCard(int accId, string recipientCard, decimal am, string not)

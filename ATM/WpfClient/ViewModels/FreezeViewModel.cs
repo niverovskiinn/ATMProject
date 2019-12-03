@@ -106,7 +106,7 @@ namespace WpfClient.ViewModels
 
         private bool CanFreezeExecute(object o)
         {
-            return (SelectedAccount != null) && (SelectedAccount.StatusId == 1);
+            return (SelectedAccount != null) && (SelectedAccount.StatusId == StatusType.Active);
         }
 
         private async void SubmitImplementation(object o)

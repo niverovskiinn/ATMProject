@@ -11,9 +11,9 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <Label Name="Label" Grid.Row="0" FontWeight="Bold" FontSize="16" Margin="-2,-10,0,0" HorizontalContentAlignment="Center"  
+        <Label Foreground="#381C40" Name="Label" Grid.Row="0" FontWeight="Bold" FontSize="16" Margin="-2,-10,0,0" HorizontalContentAlignment="Center"  
                Content="{Binding Caption, RelativeSource={RelativeSource FindAncestor, AncestorType=local:LabelAndTextControl}, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Name="TextBox" Grid.Row ="1" FontSize="14" FontWeight="Bold" MaxLength="16" 
-                 Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=local:LabelAndTextControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Foreground="#381C40" Name="TextBox" Grid.Row ="1" FontSize="20" FontWeight="Bold" MaxLength="16" 
+                 HorizontalContentAlignment="Center" Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=local:LabelAndTextControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

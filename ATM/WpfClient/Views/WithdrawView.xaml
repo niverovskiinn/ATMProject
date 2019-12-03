@@ -7,7 +7,7 @@
              xmlns:controls="clr-namespace:WpfClient.Tools.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="#F1EaEa">
         <Grid.RowDefinitions>
             <RowDefinition Height="2.2*"/>
             <RowDefinition Height="1.5*"/>
@@ -23,6 +23,6 @@
                Content="Сhoose account"/>
         <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Stretch" IsEditable="False" FontSize="16" VerticalAlignment="Stretch" Margin="70 30 70 30" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
         <Button Name="BackButton" Grid.Row="3" Grid.Column="0" Margin="80 0"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
-        <Button Name="EnterButton" Grid.Row="3" Grid.Column="1" Margin="80 0" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Content="Enter" Command="{Binding EnterCommand}"></Button>
+        <Button Background="#B87CCB" Name="EnterButton" Grid.Row="3" Grid.Column="1" Margin="80 0" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Content="Enter" Command="{Binding EnterCommand}"></Button>
     </Grid>
 </UserControl>

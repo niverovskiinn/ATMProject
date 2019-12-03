@@ -29,13 +29,13 @@ namespace WpfClient.Models
         #region Properties
         public int Id { get; set; }
 
-        public int TypeId { get; set; }
+        public AccountTypes TypeId { get; set; }
 
         public decimal AmountMoney { get; set; }
 
         public DateTime Creation { get; set; }
 
-        public int StatusId { get; set; }
+        public StatusType StatusId { get; set; }
 
         public string OwnerPassport { get; set; }
 
@@ -43,7 +43,7 @@ namespace WpfClient.Models
         #endregion
 
 
-        public Account(int id, int typeId, decimal amountMoney, DateTime creation, int statusId, string ownerPassport, string notes)
+        public Account(int id, AccountTypes typeId, decimal amountMoney, DateTime creation, StatusType statusId, string ownerPassport, string notes)
         {
             Id = id;
             TypeId = typeId;

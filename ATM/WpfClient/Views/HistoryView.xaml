@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfClient.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="#F1EaEa">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -19,30 +19,30 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Margin="50,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
+        <Label Foreground="#381C40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Margin="50,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" 
                Content="Сhoose account"/>
-        <ComboBox Grid.Row="1" MinWidth="105" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" VerticalAlignment="Center" Margin="60 0 0 0" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
+        <ComboBox Foreground="#381C40" Grid.Row="1" MinWidth="105" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Left" IsEditable="False" FontSize="16" VerticalAlignment="Center" Margin="60 0 0 0" ItemsSource="{Binding Path=Accounts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Id"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Margin="0" FontSize="18" FontWeight="Bold" 
+        <Label Foreground="#381C40" Grid.Row="2" Grid.Column="0" Margin="0" FontSize="18" FontWeight="Bold" 
                HorizontalContentAlignment="Center" Content="Choose 'from' date:"></Label>
-        <Label Grid.Row="2" Grid.Column="1" Margin="0" FontSize="18" FontWeight="Bold" 
+        <Label Foreground="#381C40" Grid.Row="2" Grid.Column="1" Margin="0" FontSize="18" FontWeight="Bold" 
                HorizontalContentAlignment="Center" Content="Choose 'to' date:"></Label>
-        <DatePicker Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                    FirstDayOfWeek="Monday" IsTodayHighlighted="True"  SelectedDate="{Binding FromDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
-        <DatePicker Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+        <DatePicker Foreground="#381C40" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    FirstDayOfWeek="Monday" IsTodayHighlighted="True" SelectedDate="{Binding FromDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+        <DatePicker Foreground="#381C40" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
                     FirstDayOfWeek="Monday" IsTodayHighlighted="True"  SelectedDate="{Binding ToDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
-        <DataGrid Grid.Row="4" Grid.ColumnSpan="2" Margin="20" ItemsSource="{Binding Transactions, Mode=OneWay}" 
+        <DataGrid Foreground="#381C40" Grid.Row="4" Grid.ColumnSpan="2" Margin="20" ItemsSource="{Binding Transactions, Mode=OneWay}" 
                   AutoGenerateColumns="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Width="0.6*" Header="Date" Binding="{Binding DateT}"></DataGridTextColumn>
-                <DataGridTextColumn Width="0.3*" Header="Type" Binding="{Binding Type}"></DataGridTextColumn>
-                <DataGridTextColumn Width="0.5*" Header="From acc id" Binding="{Binding FromId}"></DataGridTextColumn>
-                <DataGridTextColumn Width="0.5*" Header="To acc id" Binding="{Binding ToId}"></DataGridTextColumn>
-                <DataGridTextColumn Width="0.4*" Header="Amount" Binding="{Binding AmountMoney}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Notes" Binding="{Binding Notes}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="#381C40" Width="0.6*" Header="Date" Binding="{Binding DateTime}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="#381C40" Width="0.3*" Header="Type" Binding="{Binding Type}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="#381C40" Width="0.5*" Header="From acc id" Binding="{Binding AccountFromId}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="#381C40" Width="0.5*" Header="To acc id" Binding="{Binding AccountToId}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="#381C40" Width="0.4*" Header="Amount" Binding="{Binding AmountMoney}"></DataGridTextColumn>
+                <DataGridTextColumn Foreground="#381C40" Width="*" Header="Notes" Binding="{Binding Notes}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="BackButton" Grid.Row="5" Grid.Column="0" Margin="5" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
-        <Button Name="ShowButton" Grid.Row="5" Grid.Column="1" Margin="5" FontSize="16" FontWeight="Bold" Content="Show" Command="{Binding ShowCommand}"></Button>
+        <Button Foreground="#381C40" Background="#CF92E2" Name="BackButton" Grid.Row="5" Grid.Column="0" Margin="5" FontSize="16" FontWeight="Bold" Content="Back" Command="{Binding BackCommand}"></Button>
+        <Button Foreground="#381C40" Background="#B87CCB" Name="ShowButton" Grid.Row="5" Grid.Column="1" Margin="5" FontSize="16" FontWeight="Bold" Content="Show" Command="{Binding ShowCommand}"></Button>
     </Grid>
 </UserControl>

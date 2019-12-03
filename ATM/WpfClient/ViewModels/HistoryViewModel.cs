@@ -123,6 +123,7 @@ namespace WpfClient.ViewModels
         private async void ShowImplementation(object o)
         {
             LoaderManager.Instance.ShowLoader();
+            Transactions.Clear();
             List<Transaction> tmp = null;
             var result = await Task.Run(async () =>
             {
@@ -154,7 +155,7 @@ namespace WpfClient.ViewModels
 
         private bool CanShowExecute(object o)
         {
-            return (ToDate.CompareTo(FromDate) > 0) && (SelectedAccount != null) && (SelectedAccount.StatusId == 1);
+            return (ToDate.CompareTo(FromDate) > 0) && (SelectedAccount != null) && (SelectedAccount.StatusId == StatusType.Active);
         }
 
         public ICommand BackCommand
@@ -169,8 +170,10 @@ namespace WpfClient.ViewModels
 
         private void BackImplementation(object o)
         {
-            FromDate = DateTime.Today;
-            ToDate = DateTime.Today;
+            FromDate = DateTime.Now;
+            ToDate = DateTime.Now;
+            Transactions.Clear();
+            SelectedAccount = null;
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 

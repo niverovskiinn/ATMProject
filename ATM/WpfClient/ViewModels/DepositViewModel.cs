@@ -23,6 +23,7 @@ namespace WpfClient.ViewModels
         private ObservableCollection<Account> _accounts;
         private Account _selectedAccount;
         private string _depositAmount;
+        private string _accountInfo;
 
         private Visibility _loaderVisibility = Visibility.Hidden;
         private bool _isControlEnabled = true;
@@ -51,6 +52,16 @@ namespace WpfClient.ViewModels
             }
         }
 
+        public string AccountInfo
+        {
+            get { return _accountInfo; }
+            set
+            {
+                _accountInfo = value; 
+                OnPropertyChanged();
+            }
+        }
+
         public Account SelectedAccount
         {
             get { return _selectedAccount; }
@@ -58,6 +69,18 @@ namespace WpfClient.ViewModels
             {                   //TODO clear all digits of account id except few of them, using one more method
                                 //TODO make cases by type of account, COMMISION
                 _selectedAccount = value;
+                if (_selectedAccount != null)
+                {
+                    AccountTypes t = (AccountTypes) SelectedAccount.TypeId;
+                    StatusType ts = (StatusType)SelectedAccount.StatusId;
+
+                    AccountInfo = $"Type: {t}\nRemaining: {SelectedAccount.AmountMoney} UAH\nStatus: {ts}"; //якщо що - видалити аккаунтінфо з цього класу,
+                                                                              //також лейбл з в'юхи, і поміняти енам в акаунті на інт назад
+                }
+                else
+                {
+                    AccountInfo = "";
+                }
                 OnPropertyChanged();
             }
         }
@@ -119,7 +142,7 @@ namespace WpfClient.ViewModels
         private bool CanDepositExecute(object obj)
         {
             return !String.IsNullOrWhiteSpace(_depositAmount) && !String.Equals("0",_depositAmount)
-                && (SelectedAccount != null) && (SelectedAccount.StatusId == 1);
+                && (SelectedAccount != null) && (SelectedAccount.StatusId == StatusType.Active);
         }
 
 
@@ -127,6 +150,7 @@ namespace WpfClient.ViewModels
         {
             DepositAmount = "0";
             SelectedAccount = null;
+            AccountInfo = null;
             NavigationManager.Instance.Navigate(ViewType.Actions);
         }
 
