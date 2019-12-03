@@ -36,7 +36,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"passport\"");
+                throw new Exception("Incorrect passport");
             }
         }
 
@@ -56,7 +56,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"from\" or \"to\" or \"account\" ");
+                throw new Exception("Incorrect from DateTime or to DateTime or account id");
             }
         }
 
@@ -91,7 +91,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"amount\" or \"account\" or \"notes\"");
+                throw new Exception("Incorrect account id or notes");
             }
         }
 
@@ -131,7 +131,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"number\" or \"amount\" or \"account\" or \"notes\"");
+                throw new Exception("Incorrect card number or account id or notes");
             }
         }
 
@@ -158,7 +158,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"amount\" or \"account\" ");
+                throw new Exception("Incorrect account id ");
             }
         }
         

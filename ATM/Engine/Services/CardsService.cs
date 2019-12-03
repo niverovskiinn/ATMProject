@@ -35,7 +35,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"card_num\" or \"new_pin\"");
+                throw new Exception("Incorrect card number or new pin ");
             }
         }
 
@@ -59,7 +59,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"passport\"");
+                throw new Exception("Incorrect passport");
             }
         }
 
@@ -75,7 +75,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect card \"number\"");
+                throw new Exception("Incorrect card number");
             }
         }
 
@@ -93,7 +93,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"number\"");
+                throw new Exception("Incorrect card number");
             }
         }
     }
