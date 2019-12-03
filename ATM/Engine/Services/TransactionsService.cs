@@ -107,8 +107,9 @@ namespace Engine.Services
                 int id = data["account"];
                 string notes = data["notes"];
                 var from = await _unitOfWork.Repository<Account>().GetAsync(ac => ac.Id == id);
-                amount = (AccountTypeEnum) from.TypeId == AccountTypeEnum.Credit ? amount * 1.1m : amount;
-                if (from.AmountMoney < amount)
+                
+                var amountCom = (AccountTypeEnum) from.TypeId == AccountTypeEnum.Credit ? amount * 1.1m : amount;
+                if (from.AmountMoney < amountCom)
                     return "NOT ENOUGH MONEY";
                 if (from.StatusId  == (int) AccountStatusEnum.Closed || from.StatusId  == (int) AccountStatusEnum.Frozen)
                     return "Account not active";
@@ -127,7 +128,7 @@ namespace Engine.Services
                     Notes = (AccountTypeEnum) from.TypeId == AccountTypeEnum.Credit
                         ? "10 percent fee\n" + notes
                         : notes});
-                from.AmountMoney -= amount;
+                from.AmountMoney -= amountCom;
                 to.AmountMoney += amount;
                 await _unitOfWork.SaveChangesAsync();
                 return "Success";
