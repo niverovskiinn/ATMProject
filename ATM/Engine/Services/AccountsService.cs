@@ -27,7 +27,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"passport\"");
+                throw new Exception("Incorrect passport");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"id\"");
+                throw new Exception("Incorrect account id");
             }
         }
 
@@ -57,7 +57,7 @@ namespace Engine.Services
             }
             catch (InvalidOperationException)
             {
-                throw new Exception("Incorrect \"id\"");
+                throw new Exception("Incorrect account id");
             }
         }
     }
