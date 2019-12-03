@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using WpfClient.Tools;
 using WpfClient.Tools.Managers;
@@ -63,8 +64,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _showAmountCommand ?? (_showAmountCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.ShowAmount);
                            }));
             }
@@ -75,8 +77,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _depositCommand ?? (_depositCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.Deposit);
                            }));
             }
@@ -87,11 +90,14 @@ namespace WpfClient.ViewModels
             get
             {
                 return _transferMoneyCommand ?? (_transferMoneyCommand =
-                           new RelayCommand<object>(o =>
-                           {
-                               NavigationManager.Instance.Navigate(ViewType.TransferMoney);
-                           }));
+                           new RelayCommand<object>(TransferImplementation));
             }
+        }
+
+        private async void TransferImplementation(object o)
+        {
+            await AccountsManager.Instance.ReInitialize();
+            NavigationManager.Instance.Navigate(ViewType.TransferMoney);
         }
 
         public ICommand WithdrawCommand
@@ -99,8 +105,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _withdrawCommand ?? (_withdrawCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.Withdraw);
                            }));
             }
@@ -111,11 +118,14 @@ namespace WpfClient.ViewModels
             get
             {
                 return _freezeCommand ?? (_freezeCommand =
-                           new RelayCommand<object>(o =>
-                           {
-                               NavigationManager.Instance.Navigate(ViewType.Freeze);
-                           }));
+                           new RelayCommand<object>(FreezeImplementation));
             }
+        }
+
+        private async void FreezeImplementation(object o)
+        {
+            await AccountsManager.Instance.ReInitialize();
+            NavigationManager.Instance.Navigate(ViewType.Freeze);
         }
 
 
@@ -124,8 +134,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _historyCommand ?? (_historyCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.History);
                            }));
             }

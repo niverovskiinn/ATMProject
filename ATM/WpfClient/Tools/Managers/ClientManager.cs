@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
 using WpfClient.Models;
 
@@ -47,7 +48,9 @@ namespace WpfClient.Tools.Managers
 
             var response = _client.PostAsJsonAsync(uri, new { number = cardNumber, pincode = pin }).Result;
             //or use https://stackoverflow.com/questions/6117101/posting-jsonobject-with-httpclient-from-web-api
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
+            //MessageBox.Show(response.Content.);
+
             //if (!response.IsSuccessStatusCode)
             //    throw new InvalidOperationException(response.Content.ToString());
 
@@ -60,7 +63,7 @@ namespace WpfClient.Tools.Managers
 
             var response = _client.PostAsJsonAsync(uri, new { passport = passN }).Result;
             response.EnsureSuccessStatusCode();
-
+            
             string responseBody = response.Content.ReadAsStringAsync().Result;
 
             //if (!response.IsSuccessStatusCode)
@@ -82,7 +85,7 @@ namespace WpfClient.Tools.Managers
             return true;
         }
 
-        internal bool FrozeAccountById(int accId)
+        internal bool FreezeAccountById(int accId)
         {
             string uri = "api/accounts/froze";
 

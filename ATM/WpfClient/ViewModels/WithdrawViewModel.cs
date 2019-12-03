@@ -148,11 +148,15 @@ namespace WpfClient.ViewModels
         {
             try
             {
-                StationManager.ReinitializeAccounts();
+                //StationManager.ReinitializeAccounts();
                 AccountsToWithdraw = new ObservableCollection<Account>(StationManager.Accounts);
             }
             catch (Exception e)
             {
+                MessageBox.Show($"Failed to get info about accounts." +
+                                $"\nReason:{Environment.NewLine}{e.Message}");
+                //return false;
+
                 this._accountsToWithdraw = new ObservableCollection<Account>()
                 {
                     new Account(1,0,3m,DateTime.Now,0,"ab", ""),
