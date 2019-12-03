@@ -192,7 +192,7 @@ namespace WpfClient.ViewModels
                 {
                     //StationManager.ReinitializeAccounts();
                     //Accounts = StationManager.Accounts;
-                    await AccountsManager.Instance.ReInitialize();
+                    //await AccountsManager.Instance.ReInitialize();
                     Accounts = AccountsManager.Instance.Accs;
                     if (Accounts != null)
                     {
@@ -225,14 +225,6 @@ namespace WpfClient.ViewModels
         public TransferMoneyViewModel()
         {
             Initialize();
-            //Accounts = ClientManager.GetAccountsByPassportAsync(StationManager.CurrentUser.Passport);
-            //this._accounts = new ObservableCollection<Account>()
-            //{
-            //    new Account(1,0,3m,DateTime.Now,0,"ab",""),
-            //    new Account(2,0,3m,DateTime.Now,0,"bc",""),
-            //    new Account(3,0,3m,DateTime.Now,0,"cd","")
-            //};
-            //SelectedAccount = Accounts?[0];
         }
     }
 }

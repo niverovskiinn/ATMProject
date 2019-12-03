@@ -116,7 +116,7 @@ namespace WpfClient.ViewModels
             var mesres = MessageBox.Show($"Do you really want to freeze account:" +
                                          $"\n {SelectedAccount.Id}, TypeId: {SelectedAccount.TypeId}?","Freeze?",
                                         MessageBoxButton.YesNo,MessageBoxImage.Question, MessageBoxResult.No);
-            if (mesres == MessageBoxResult.OK)
+            if (mesres == MessageBoxResult.Yes)
             { 
                 LoaderManager.Instance.ShowLoader();
 
@@ -125,7 +125,7 @@ namespace WpfClient.ViewModels
                     bool res = false;
                     try
                     {
-                        res = ClientManager.Instance.FrozeAccountById(SelectedAccount.Id);
+                        res = ClientManager.Instance.FreezeAccountById(SelectedAccount.Id);
                     }
                     catch (Exception e)
                     {
@@ -156,7 +156,7 @@ namespace WpfClient.ViewModels
                 {
                     //StationManager.ReinitializeAccounts();
                     //Accounts = StationManager.Accounts;
-                    await AccountsManager.Instance.ReInitialize();
+                   // await AccountsManager.Instance.ReInitialize();
                     Accounts = AccountsManager.Instance.Accs;
                     if (Accounts != null)
                     {

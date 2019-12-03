@@ -85,7 +85,7 @@ namespace WpfClient.Tools.Managers
             return true;
         }
 
-        internal bool FrozeAccountById(int accId)
+        internal bool FreezeAccountById(int accId)
         {
             string uri = "api/accounts/froze";
 

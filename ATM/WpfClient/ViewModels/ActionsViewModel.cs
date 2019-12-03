@@ -64,8 +64,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _showAmountCommand ?? (_showAmountCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.ShowAmount);
                            }));
             }
@@ -76,8 +77,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _depositCommand ?? (_depositCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.Deposit);
                            }));
             }
@@ -103,8 +105,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _withdrawCommand ?? (_withdrawCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.Withdraw);
                            }));
             }
@@ -131,8 +134,9 @@ namespace WpfClient.ViewModels
             get
             {
                 return _historyCommand ?? (_historyCommand =
-                           new RelayCommand<object>(o =>
+                           new RelayCommand<object>(async o =>
                            {
+                               await AccountsManager.Instance.ReInitialize();
                                NavigationManager.Instance.Navigate(ViewType.History);
                            }));
             }
